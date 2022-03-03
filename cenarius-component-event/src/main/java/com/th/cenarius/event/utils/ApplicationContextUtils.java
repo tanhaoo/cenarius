@@ -4,6 +4,7 @@ import com.th.cenarius.event.EventBusCenter;
 import com.th.cenarius.event.EventListener;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,9 @@ public class ApplicationContextUtils implements ApplicationContextAware {
     @Getter
     private ApplicationContext context;
 
+    @Autowired
+    EventBusCenter busCenter;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
@@ -38,8 +42,7 @@ public class ApplicationContextUtils implements ApplicationContextAware {
 
         listenerMap.values().forEach(item -> {
             // 注册事件处理器
-            EventBusCenter.sync()
-                    .register(item);
+            busCenter.register(item);
         });
         // log
         log.info("succeed to register event listeners, total size {}. type:{}",

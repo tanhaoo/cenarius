@@ -43,14 +43,14 @@ public interface EventBusCenter {
     static EventBusCenter sync() {
         return DefaultSyncEventBus.INSTANCE;
     }
-//
-//    /**
-//     * 获取异步事件总线
-//     *
-//     * @return 异步事件总线
-//     */
-//    static EventBus async() {
-//        return DefaultAsyncEventBus.INSTANCE;
-//    }
+
+    /**
+     * 获取异步事件总线
+     *
+     * @return 异步事件总线
+     */
+    static EventBusCenter async() {
+        return DefaultAsyncEventBus.INSTANCE;
+    }
 
 }

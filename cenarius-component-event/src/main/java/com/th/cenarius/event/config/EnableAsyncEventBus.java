@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import({SyncEventBusConfiguration.class, ApplicationContextUtils.class})
-public @interface EnableEventBus {
+@Import({AsyncEventBusConfiguration.class, ApplicationContextUtils.class})
+public @interface EnableAsyncEventBus {
 }
