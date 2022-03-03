@@ -1,5 +1,6 @@
 package com.th.cenarius.lock.advice;
 
+import com.sun.source.util.Trees;
 import com.th.cenarius.lock.annotation.RedisLock;
 import com.th.cenarius.lock.utils.SpELUtils;
 
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -57,24 +59,19 @@ public class RedisLockAdvice {
         String collection = annotation.collection();
         String property = annotation.property();
 
-        Set<String> keys = new HashSet<>();
+        Set<String> keys = new TreeSet<>();
         if (StringUtil.isNotEmpty(value))
             keys.add(prefix + SpELUtils.parseExpression(value, method, args, String.class));
         else if (StringUtil.isNotEmpty(collection) && StringUtil.isNotEmpty(property)) {
             Collection valOfCollection = SpELUtils.parseExpression(collection, method, args, Collection.class);
-            valOfCollection.stream().iterator().forEachRemaining(item -> {
-                keys.add(prefix + SpELUtils.parseExpression(property, item));
-            });
+            valOfCollection.stream().iterator().forEachRemaining(item -> keys.add(prefix + SpELUtils.parseExpression(property, item)));
         }
-        System.err.println(keys);
         Map<String, RLock> lock = this.lock(keys);
-        Object proceed = null;
         try {
-            proceed = point.proceed();
+            return point.proceed();
         } finally {
             this.unlock(lock);
         }
-        return proceed;
     }
 
     private Map<String, RLock> lock(Set<String> keys) {
@@ -88,7 +85,6 @@ public class RedisLockAdvice {
             locks.put(key, lock);
             log.info("Succeed to create a distributed lock. key: {}", key);
         }
-
         return locks;
     }
 
@@ -97,7 +93,7 @@ public class RedisLockAdvice {
 
         while (var2.hasNext()) {
             String key = (String) var2.next();
-            ((RLock) locks.get(key)).unlock();
+            locks.get(key).unlock();
             log.info("Succeed to unlock. key: {}", key);
         }
 

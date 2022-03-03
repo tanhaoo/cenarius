@@ -1,15 +1,16 @@
 package com.th.test;
 
-import com.th.cenarius.lock.config.EnableRedisLockAdvice;
 import com.th.cenarius.lock.utils.SpELUtils;
-import com.th.test.app.OrderService;
+import com.th.test.app.event.OrderSubmitEventById;
+import com.th.test.app.event.OrderSubmitEventByOrder;
+import com.th.test.app.event.listener.OrderSubmitEventListenerByOrder;
+import com.th.test.app.service.OrderService;
 import com.th.test.domain.Order;
 import com.th.test.domain.OrderItem;
 import com.th.test.domain.OrderPrice;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.util.ReflectionUtils;
@@ -30,23 +31,24 @@ public class ApplicationTest {
     @Resource
     OrderService service;
 
+    Order order;
+    List<OrderItem> items = new ArrayList<>();
+
     @BeforeEach
     public void initData() {
-
-    }
-
-    @Test
-    public void test() {
-        Order order = new Order();
+        order = new Order();
         order.id = 100;
-        List<OrderItem> items = new ArrayList<>();
         order.items = items;
         for (int i = 0; i < 10; i++) {
             items.add(new OrderItem(i, new OrderPrice(i + 100)));
         }
+    }
 
+    @Test
+    public void test() {
         service.submit(order);
     }
+
 
     @Test
     public void test1() throws NoSuchMethodException {
@@ -66,7 +68,21 @@ public class ApplicationTest {
     @Test
     public void test3() {
         OrderItem orderItem = new OrderItem(20, new OrderPrice(100));
-        Object o = SpELUtils.parseExpression("#item.itemPrice.price", orderItem);
+        Object o = SpELUtils.parseExpression("#OrderItem.itemPrice.price", orderItem);
         System.out.println(o);
+    }
+
+    @Test
+    public void testEvent() {
+        System.out.println(order);
+        OrderSubmitEventByOrder eventByOrder = new OrderSubmitEventByOrder(order);
+        OrderSubmitEventById eventById = new OrderSubmitEventById(order.getId());
+        OrderSubmitEventListenerByOrder eventListenerByOrder = new OrderSubmitEventListenerByOrder();
+        System.out.println(eventListenerByOrder.support(eventById));
+//        Type[] genericInterfaces = eventListenerByOrder.getClass().getGenericInterfaces();
+//        Type genericSuperclass = eventListenerByOrder.getClass().getGenericSuperclass();
+        System.out.println(1);
+
+
     }
 }

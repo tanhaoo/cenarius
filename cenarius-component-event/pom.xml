@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cenarius-test</artifactId>
+    <artifactId>cenarius-component-event</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -17,11 +17,10 @@
     </properties>
 
     <dependencies>
-        <!-- ======================================================================== -->
-        <!-- === Spring Boot === -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
         </dependency>
         <!-- Unit Test -->
         <dependency>
@@ -31,17 +30,11 @@
         </dependency>
         <!-- ======================================================================== -->
 
-
         <dependency>
-            <groupId>com.th</groupId>
-            <artifactId>cenarius-component-lock</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.th</groupId>
-            <artifactId>cenarius-component-event</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
+
 </project>
