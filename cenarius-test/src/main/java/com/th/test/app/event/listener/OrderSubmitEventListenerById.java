@@ -15,5 +15,11 @@ public class OrderSubmitEventListenerById implements EventListener<OrderSubmitEv
     @Override
     public void onEvent(OrderSubmitEventById event) {
         System.err.println(event.getTarget());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(1/0);
     }
 }

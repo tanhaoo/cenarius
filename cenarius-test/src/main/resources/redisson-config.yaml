@@ -5,7 +5,7 @@ singleServerConfig:
   timeout: 3000
   retryAttempts: 3
   retryInterval: 1500
-  password: null
+  password: abc
   subscriptionsPerConnection: 5
   clientName: null
   address: "redis://127.0.0.1:6379"

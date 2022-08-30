@@ -33,6 +33,7 @@ public class AbstractEventBus implements EventBusCenter {
         if (eventBus != null) {
             eventBus.register(
                     new Object() {
+                        // It is called when method post() is executed
                         @Subscribe
                         public void onEvent(Event event) {
                             listeners.stream()
@@ -50,7 +51,7 @@ public class AbstractEventBus implements EventBusCenter {
     @Override
     public void register(EventListener listener) {
         if (!listeners.contains(listener)) {
-            // 同一个实例不能重复注册
+            // 同一个实例不能重复注册，因为没有重写equals，再加上在getBeansOfType时已经去重了，所以这边contain无意义
             listeners.add(listener);
         }
     }

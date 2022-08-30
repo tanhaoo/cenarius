@@ -3,8 +3,6 @@ package com.th.cenarius.event;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @Author: Aaron
  * @Date: 2022/3/2

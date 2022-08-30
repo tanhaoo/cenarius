@@ -4,6 +4,7 @@ import com.th.cenarius.event.EventBusCenter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * @Author: Aaron

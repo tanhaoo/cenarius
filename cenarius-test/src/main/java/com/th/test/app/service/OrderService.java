@@ -20,11 +20,17 @@ public class OrderService {
     @Autowired
     EventBusCenter busCenter;
 
+    /**
+     * Submit
+     * @param order {@link Order} instance
+     */
     //    @RedisLock(value = "#order.id", prefix = "ORDER")
 //    @RedisLock(collection = "#order.items", property = "#OrderItem.itemPrice.price", prefix = "Order:")
+    @RedisLock(collection = "#order.codes", property = "#Integer", prefix = "Order:")
     public void submit(Order order) {
 
         busCenter.post(new OrderSubmitEventById(order.getId()));
+        busCenter.post(new OrderSubmitEventByOrder(order));
         busCenter.post(new OrderSubmitEventByOrder(order));
         busCenter.post(new OrderSubmitEventByUnknown(order.toString()));
         System.out.println(order);

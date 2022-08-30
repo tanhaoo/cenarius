@@ -1,4 +1,7 @@
+server:
+  port: 9090
 spring:
+
   # 指定 redisson 配置文件
   redis.redisson:
     file: classpath:redisson-config.yaml
