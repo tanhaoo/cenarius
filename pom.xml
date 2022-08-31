@@ -26,6 +26,8 @@
         <spring.boot.version>2.5.5</spring.boot.version>
 
         <slf4j.api.version>1.7.30</slf4j.api.version>
+
+        <guava-version>31.1-jre</guava-version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -43,7 +45,14 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.79</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
