@@ -14,6 +14,7 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
@@ -31,12 +32,18 @@ public class CenariusCodeGenProcessor extends AbstractProcessor {
             Set<? extends Element> typeElements = roundEnv.getElementsAnnotatedWith(annotation);
             Set<TypeElement> types = ElementFilter.typesIn(typeElements);
             for (TypeElement element : types) {
-                CodeGenProcessor codeGenProcessor = CodeGenProcessorRegistry.find(annotation.getQualifiedName().toString());
-                try {
-                    codeGenProcessor.generate(element, roundEnv);
-                } catch (Exception e) {
-                    ProcessingEnvironmentHolder.getEnvironment().getMessager().printMessage(Diagnostic.Kind.ERROR, "Code generating abnormalities:" + e.getMessage());
+
+                if (element.getKind() == ElementKind.CLASS) {
+
+                    CodeGenProcessor codeGenProcessor = CodeGenProcessorRegistry.find(annotation.getQualifiedName().toString());
+
+                    try {
+                        codeGenProcessor.generate(element, roundEnv);
+                    } catch (Exception e) {
+                        ProcessingEnvironmentHolder.getEnvironment().getMessager().printMessage(Diagnostic.Kind.ERROR, "Code generating abnormalities:" + e.getMessage());
+                    }
                 }
+
             }
         });
         return false;
@@ -58,7 +65,6 @@ public class CenariusCodeGenProcessor extends AbstractProcessor {
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latestSupported();
     }
-
 
 
 }

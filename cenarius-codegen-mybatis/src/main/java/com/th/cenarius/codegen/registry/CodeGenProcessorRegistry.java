@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import com.th.cenarius.codegen.spi.CodeGenProcessor;
 
 import java.lang.annotation.Annotation;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;

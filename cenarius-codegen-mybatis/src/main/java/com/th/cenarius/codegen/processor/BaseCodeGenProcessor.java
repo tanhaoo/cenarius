@@ -53,12 +53,11 @@ public abstract class BaseCodeGenProcessor implements CodeGenProcessor {
     /**
      * Filter attribute
      * <p>
-     * Element是一个接口，表示一个程序元素，它可以是包、类、方法或者一个变量。Element已知的子接口有：
-     * <p>
-     * PackageElement 表示一个包程序元素。提供对有关包及其成员的信息的访问。
-     * ExecutableElement 表示某个类或接口的方法、构造方法或初始化程序（静态或实例），包括注释类型元素。
-     * TypeElement 表示一个类或接口程序元素。提供对有关类型及其成员的信息的访问。注意，枚举类型是一种类，而注解类型是一种接口。
-     * VariableElement 表示一个字段、enum 常量、方法或构造方法参数、局部变量或异常参数。
+     * Element是一个接口，表示一个程序元素，它可以是包、类、方法或者一个变量。Element已知的子接口有:
+     * <p>PackageElement 表示一个包程序元素。提供对有关包及其成员的信息的访问。</p>
+     * <p>ExecutableElement 表示某个类或接口的方法、构造方法或初始化程序（静态或实例），包括注释类型元素。</p>
+     * <p>TypeElement 表示一个类或接口程序元素。提供对有关类型及其成员的信息的访问。注意，枚举类型是一种类，而注解类型是一种接口。</p>
+     * <p>VariableElement 表示一个字段、enum 常量、方法或构造方法参数、局部变量或异常参数。</p>
      *
      * @param typeElement {@link TypeElement} instance
      * @param predicate   {@link Predicate} instance
