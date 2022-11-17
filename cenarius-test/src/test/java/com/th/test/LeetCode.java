@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -1420,6 +1421,7 @@ public class LeetCode {
     }
 
     @EqualsAndHashCode
+    @ToString
     public class ListNode {
         int val;
         ListNode next;
@@ -1436,13 +1438,7 @@ public class LeetCode {
             this.next = next;
         }
 
-        @Override
-        public String toString() {
-            return "ListNode{" +
-                    "val=" + val +
-                    ", next=" + next +
-                    '}';
-        }
+
     }
 
     @Test
@@ -1657,7 +1653,85 @@ public class LeetCode {
         return dummy.next;
     }
 
+    @Test
+    public void testReorderList() {
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+        reorderList1(head);
 
+        assertEquals(new ListNode(1, new ListNode(5, new ListNode(2, new ListNode(4, new ListNode(3))))), head);
+    }
+
+    public void reorderList(ListNode head) {
+        List<ListNode> nodes = new ArrayList<>();
+        ListNode dummy = head;
+        while (dummy != null) {
+            nodes.add(dummy);
+            dummy = dummy.next;
+        }
+        int left, right, count;
+        left = 1;
+        count = 1;
+        right = nodes.size() - 1;
+        dummy = head;
+        while (left <= right) {
+            if (count % 2 == 0) {
+                dummy.next = nodes.get(left);
+                dummy = dummy.next;
+                left++;
+            } else {
+                dummy.next = nodes.get(right);
+                dummy = dummy.next;
+                right--;
+            }
+            dummy.next = null;
+            count++;
+        }
+    }
+
+    public void reorderList1(ListNode head) {
+        ListNode slow, fast;
+        slow = fast = head;
+        /**
+         *  先分成两段
+         *  1   2   3   4   5
+         *  slow    fast
+         *   2       3
+         *   3       5
+         */
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // 拿到第二段的开头
+        ListNode second = slow.next;
+        ListNode pre;
+        // 这里很关键，要把slow.next的地址第一段也有，这边要赋null，不然就下面就要自己指向自己了
+        // 现在就分成了 【1，2，3】【4，5】两段了
+        // 倒叙排列
+        pre = slow.next = null;
+        while (second != null) {
+            ListNode temp = second.next;
+            second.next = pre;
+            pre = second;
+            second = temp;
+        }
+
+        /**
+         *  1 —> 2 -> 3   5 -> 4
+         *  1 -> 5 -> 2
+         *  2 -> 4 -> 3
+         *  1 -> 5 -> 2 -> 4 -> 3
+         */
+        ListNode temp1, temp2, first = head;
+        while (pre != null) {
+            temp1 = first.next;
+            temp2 = pre.next;
+            first.next = pre;
+            pre.next = temp1;
+            pre = temp2;
+            first = temp1;
+        }
+    }
 
 }
 
