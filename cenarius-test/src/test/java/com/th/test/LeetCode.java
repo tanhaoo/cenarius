@@ -16,6 +16,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import lombok.EqualsAndHashCode;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -1417,6 +1419,7 @@ public class LeetCode {
         return false;
     }
 
+    @EqualsAndHashCode
     public class ListNode {
         int val;
         ListNode next;
@@ -1567,7 +1570,8 @@ public class LeetCode {
         ListNode node1 = new ListNode(1, new ListNode(2, new ListNode(4)));
         ListNode node2 = new ListNode(1, new ListNode(3, new ListNode(4)));
         ListNode node3 = new ListNode(5, new ListNode(6, new ListNode(7)));
-        System.out.println(mergeKLists1(new ListNode[]{node1, node2, node3}));
+        assertEquals(new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(4, new ListNode(5, new ListNode(6, new ListNode(7))))))))),
+                mergeKLists1(new ListNode[]{node1, node2, node3}));
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
@@ -1597,6 +1601,62 @@ public class LeetCode {
         }
         return result[0];
     }
+
+    @Test
+    public void testRemoveNthFromEnd() {
+        assertEquals(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5)))),
+                removeNthFromEnd2(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))), 2));
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode cur = head;
+        List<ListNode> lists = new ArrayList<>();
+        while (cur != null) {
+            lists.add(cur);
+            cur = cur.next;
+        }
+        if (lists.size() == 0)
+            return head;
+        if ((lists.size() - n - 1) < 0) {
+            return head.next;
+        }
+        ListNode pre = lists.get(lists.size() - n - 1);
+        pre.next = pre.next.next;
+        return head;
+    }
+
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        ListNode left = head;
+        ListNode right = head;
+        for (int i = 0; i < n; i++) {
+            right = right.next;
+        }
+        if (right == null)
+            return head.next;
+        while (right.next != null) {
+            left = left.next;
+            right = right.next;
+        }
+        left.next = left.next.next;
+        return head;
+    }
+
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode left = dummy;
+        ListNode right = head;
+        for (int i = 0; i < n; i++) {
+            right = right.next;
+        }
+        while (right != null) {
+            left = left.next;
+            right = right.next;
+        }
+        left.next = left.next.next;
+        return dummy.next;
+    }
+
 
 
 }
