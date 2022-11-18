@@ -1733,5 +1733,100 @@ public class LeetCode {
         }
     }
 
+    @Test
+    public void testSetZeroes() {
+        // new int[][]{{1,0}}
+        // {{1, 1, 1,}, {1, 0, 1}, {1, 1, 1}}
+        int[][] data = {{1, 0}};
+        int[][] except = {{1, 0, 1,}, {0, 0, 0}, {1, 0, 1}};
+        /**
+         * 1    2   3   4
+         * 5    0   7   8
+         * 0    10  11  12
+         * 13  14  15   0
+         */
+        setZeroes(data);
+        assertEquals(except, data);
+    }
+
+    public void setZeroes(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    if (j != 0)
+                        matrix[0][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[i].length; j++) {
+                if (matrix[i][0] == 0)
+                    clearRow(matrix, i);
+                if (matrix[0][j] == 0)
+                    clearColumn(matrix, j);
+            }
+        }
+        if (matrix[0][0] == 0) {
+            clearRow(matrix, 0);
+            clearColumn(matrix, 0);
+        }
+    }
+
+
+    public void clearColumn(int[][] matrix, int val) {
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][val] = 0;
+        }
+    }
+
+    public void clearRow(int[][] matrix, int val) {
+        for (int i = 0; i < matrix[val].length; i++) {
+            matrix[val][i] = 0;
+        }
+    }
+
+    public void setZeroes1(int[][] matrix) {
+        /**
+         * 1    2   3   4
+         *
+         * 5    0   7   8
+         * 0    10  11  12
+         * 13  14  15   0
+         */
+        int rows, cols;
+        boolean zeroRow = false;
+        rows = matrix.length;
+        cols = matrix[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    // 这里看当前列是不是0，如果是0标记一下，不能把往数组里赋值，因为这个位置已经给行用了
+                    if (j != 0)
+                        matrix[0][j] = 0;
+                    else
+                        zeroRow = true;
+                }
+            }
+        }
+        // 先不看0行，0列
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[i].length; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                    matrix[i][j] = 0;
+            }
+        }
+        // 判断0行是否需要为0
+        if (matrix[0][0] == 0)
+            for (int i = 0; i < cols; i++)
+                matrix[0][i] = 0;
+
+        // 判断0列是否需要为0
+        if (zeroRow)
+            for (int i = 0; i < rows; i++)
+                matrix[i][0] = 0;
+    }
 }
 
