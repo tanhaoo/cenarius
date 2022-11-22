@@ -1828,5 +1828,140 @@ public class LeetCode {
             for (int i = 0; i < rows; i++)
                 matrix[i][0] = 0;
     }
+
+    @Test
+    public void testSpiralOrder() {
+        List<Integer> result = spiralOrder1(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        List<Integer> except = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
+        System.out.println(result);
+    }
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int curCol, curRow, rightBound, bottomBound, leftBound, topBound, direction;
+
+        rightBound = rows;
+        bottomBound = -1;
+        leftBound = 0;
+        topBound = cols;
+
+        direction = 0;
+        curCol = curRow = 0;
+
+        while (true) {
+            if (bottomBound == topBound || rightBound == leftBound)
+                break;
+
+            // -> right
+            if (direction == 0) {
+                if (curCol == topBound) {
+                    curCol--;
+                    curRow++;
+                    topBound = curCol;
+                    direction = 1;
+                } else {
+                    result.add(matrix[curRow][curCol]);
+                    curCol++;
+                }
+                continue;
+            }
+
+            // -> bottom
+            if (direction == 1) {
+                if (curRow == rightBound) {
+                    curCol--;
+                    curRow--;
+
+                    rightBound = curRow;
+                    direction = 2;
+                } else {
+                    result.add(matrix[curRow][curCol]);
+                    curRow++;
+                }
+                continue;
+            }
+
+            // -> left
+            if (direction == 2) {
+                if (curCol == bottomBound) {
+                    curCol++;
+                    curRow--;
+
+                    bottomBound = curCol;
+                    direction = 3;
+                } else {
+                    result.add(matrix[curRow][curCol]);
+                    curCol--;
+                }
+                continue;
+            }
+
+            // -> top
+            if (direction == 3) {
+                if (curRow == leftBound) {
+                    curCol++;
+                    curRow++;
+
+                    leftBound = curRow;
+                    direction = 0;
+                } else {
+                    result.add(matrix[curRow][curCol]);
+                    curRow--;
+                }
+                continue;
+            }
+
+        }
+
+
+        return result;
+    }
+
+    public List<Integer> spiralOrder1(int[][] matrix) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int left, right, top, bottom;
+        left = top = 0;
+        right = matrix[0].length;
+        bottom = matrix.length;
+        // 一定左右重合或上下重合，就代表都走完了
+        while (left < right && top < bottom) {
+            // -> 向右走完
+            for (int i = left; i < right; i++)
+                result.add(matrix[top][i]);
+            // 顶行被走过了，那就到下一行去
+            top += 1;
+
+            // | 向下走完
+            for (int i = top; i < bottom; i++)
+                result.add(matrix[i][right - 1]);
+            // 右列被走过了，往左移一列
+            right -= 1;
+
+            /**
+             * {1,2,3}
+             * or
+             * {1,
+             *  2,
+             *  3}
+             */
+            if (!(left < right && top < bottom))
+                break;
+
+            // <-
+            for (int i = right - 1; i >= left; i--)
+                result.add(matrix[bottom - 1][i]);
+            // 底行被走过了，向上移一行
+            bottom -= 1;
+
+            // ^|
+            for (int i = bottom - 1; i >= top; i--)
+                result.add(matrix[i][left]);
+            // 左列被走过了，往右移一列
+            left += 1;
+        }
+        return result;
+    }
 }
 
