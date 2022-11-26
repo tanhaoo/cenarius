@@ -9,6 +9,9 @@ import com.th.test.domain.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 /**
  * @Author: Aaron
@@ -22,12 +25,13 @@ public class OrderService {
 
     /**
      * Submit
+     *
      * @param order {@link Order} instance
      */
     //    @RedisLock(value = "#order.id", prefix = "ORDER")
 //    @RedisLock(collection = "#order.items", property = "#OrderItem.itemPrice.price", prefix = "Order:")
     @RedisLock(collection = "#order.codes", property = "#Integer", prefix = "Order:")
-    public void submit(Order order) {
+    public void submit(@Valid Order order) {
 
         busCenter.post(new OrderSubmitEventById(order.getId()));
         busCenter.post(new OrderSubmitEventByOrder(order));

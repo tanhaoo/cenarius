@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
  * @Date: 2022/3/7
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"status", "data"})
+@JsonPropertyOrder({"status", "data", "error"})
 @Data
 //@NoArgsConstructor
 //@Accessors(chain = true)
@@ -27,4 +27,6 @@ public class ResultResponse {
      * 响应内容
      */
     private Object data;
+
+    private Object error;
 }

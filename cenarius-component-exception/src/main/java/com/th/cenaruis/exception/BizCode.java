@@ -1,8 +1,8 @@
-package com.th.cenarius.web.biz;
+package com.th.cenaruis.exception;
 
 /**
  * @Author: Aaron
- * @Date: 2022/3/11
+ * @Date: 2022/11/23
  */
 public interface BizCode {
     /**
@@ -18,4 +18,5 @@ public interface BizCode {
      * @return 错误消息
      */
     String getMessage();
+
 }

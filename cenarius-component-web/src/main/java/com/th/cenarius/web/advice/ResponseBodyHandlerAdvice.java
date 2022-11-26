@@ -35,6 +35,11 @@ public class ResponseBodyHandlerAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, @NonNull MediaType selectedContentType,
                                   @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType, @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
 
+        // 如果已经被异常捕捉封装，直接返回
+        if (body instanceof ResultResponse) {
+            return body;
+        }
+
         final ResultResponse.ResultResponseBuilder builder = ResultResponse.builder();
         final ResponseStatus annotation = Objects.requireNonNull(returnType.getMethod())
                 .getAnnotation(ResponseStatus.class);
