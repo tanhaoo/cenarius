@@ -21,6 +21,8 @@ import lombok.ToString;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -95,15 +97,15 @@ public class LeetCode {
     @Test
     public void testContainsDuplicate() {
         int[] prices = new int[]{7, 1, 5, 3, 6, 4, 7};
-        assertEquals(true, containsDuplicate(prices));
+        assertTrue(containsDuplicate(prices));
     }
 
     public boolean containsDuplicate(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (set.contains(nums[i]))
+        for (int num : nums) {
+            if (set.contains(num))
                 return true;
-            set.add(nums[i]);
+            set.add(num);
         }
         return false;
     }
@@ -138,8 +140,8 @@ public class LeetCode {
         int max, current;
         current = 0;
         max = nums[0];
-        for (int i = 0; i < nums.length; i++) {
-            current += nums[i];
+        for (int num : nums) {
+            current += num;
             max = max > current ? max : current;
             if (current < 0) {
                 current = 0;
@@ -157,8 +159,8 @@ public class LeetCode {
     public int maxProduct(int[] nums) {
         int result = Arrays.stream(nums).max().getAsInt();
         int cur, curMin = 1, curMax = 1;
-        for (int i = 0; i < nums.length; i++) {
-            cur = nums[i];
+        for (int num : nums) {
+            cur = num;
 
             if (cur == 0) {
                 curMax = 1;
@@ -189,12 +191,12 @@ public class LeetCode {
         while (left <= right) {
 
             if (nums[right] > nums[left]) {
-                min = min < nums[left] ? min : nums[left];
+                min = Math.min(min, nums[left]);
                 break;
             }
 
             mid = (left + right) / 2;
-            min = min < nums[mid] ? min : nums[mid];
+            min = Math.min(min, nums[mid]);
 
             if (nums[mid] >= nums[left])
                 left = mid + 1;
@@ -245,7 +247,7 @@ public class LeetCode {
                         .map(item -> Arrays.stream(item).boxed().collect(Collectors.toList()))
                         .collect(Collectors.toList());
 
-        assertEquals(false, collect.retainAll(threeSum(nums)));
+        assertFalse(collect.retainAll(threeSum(nums)));
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
@@ -293,7 +295,7 @@ public class LeetCode {
 
         while (left < right) {
             int area = (right - left) * Arrays.stream(new int[]{height[left], height[right]}).min().getAsInt();
-            maxArea = maxArea > area ? maxArea : area;
+            maxArea = Math.max(maxArea, area);
             if (height[right] > height[left]) {
                 left++;
             } else {
@@ -639,8 +641,7 @@ public class LeetCode {
         dp[dp.length - 1] = true;
         for (int i = s.length() - 1; i >= 0; i--) {
             String tempStr = s.substring(i);
-            for (int j = 0; j < wordDict.size(); j++) {
-                String curStr = wordDict.get(j);
+            for (String curStr : wordDict) {
                 if (tempStr.length() >= curStr.length() && tempStr.startsWith(curStr))
                     dp[i] = dp[i + curStr.length()];
                 if (dp[i])
@@ -653,7 +654,7 @@ public class LeetCode {
     @Test
     public void testCombinationSum() {
 
-        List<List<Integer>> result = Arrays.asList(Arrays.asList(new Integer[]{2, 2, 3}), Arrays.asList(new Integer[]{7}));
+        List<List<Integer>> result = Arrays.asList(Arrays.asList(2, 2, 3), Arrays.asList(7));
         int[] candidates = {2, 3, 6, 7};
         int target = 7;
         assertEquals(result, combinationSum(candidates, target));
@@ -695,7 +696,7 @@ public class LeetCode {
             return nums[0];
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
-        dp[1] = nums[1] > nums[0] ? nums[1] : nums[0];
+        dp[1] = Math.max(nums[1], nums[0]);
         for (int i = 2; i < nums.length; i++) {
             if (nums[i] + dp[i - 2] > dp[i - 1])
                 dp[i] = nums[i] + dp[i - 2];
@@ -1962,6 +1963,33 @@ public class LeetCode {
             left += 1;
         }
         return result;
+    }
+
+    @Test
+    public void testRotate() {
+        int[][] data = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        rotate(data);
+        Arrays.stream(data).map(Arrays::toString).forEach(System.out::println);
+    }
+
+    public void rotate(int[][] matrix) {
+        int left, top, right, bottom;
+        left = top = 0;
+        right = matrix[0].length - 1;
+        bottom = matrix.length - 1;
+        while (left < right) {
+            for (int i = 0; (left + i) < right; i++) {
+                int temp = matrix[top][left + i];
+                matrix[top][left + i] = matrix[bottom - i][left]; // left -> top
+                matrix[bottom - i][left] = matrix[bottom][right - i]; // bottom -> left
+                matrix[bottom][right - i] = matrix[top + i][right]; // right -> bottom
+                matrix[top + i][right] = temp;
+            }
+            left++;
+            right--;
+            top++;
+            bottom--;
+        }
     }
 }
 
