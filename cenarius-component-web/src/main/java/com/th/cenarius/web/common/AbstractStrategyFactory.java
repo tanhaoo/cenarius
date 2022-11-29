@@ -1,0 +1,51 @@
+package com.th.cenarius.web.common;
+
+import com.google.common.collect.Maps;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+import java.util.Collection;
+import java.util.Map;
+
+/**
+ * @Author: Aaron
+ * @Date: 2022/11/29
+ */
+public abstract class AbstractStrategyFactory<T, S extends Strategy<T>> implements InitializingBean, ApplicationContextAware {
+
+    private Map<T, S> strategyFactory;
+
+    private ApplicationContext context;
+
+    /**
+     * Get Strategy by id
+     *
+     * @param id
+     * @return strategy
+     */
+    public S getStrategy(T id) {
+        return strategyFactory.get(id);
+    }
+
+    /**
+     * Get Strategy type by child class
+     *
+     * @return Class of strategy type
+     */
+    public abstract Class<S> getStrategyType();
+
+    @Override
+    public void afterPropertiesSet() {
+        Collection<S> values = context.getBeansOfType(getStrategyType()).values();
+        strategyFactory = Maps.newHashMapWithExpectedSize(values.size());
+        values.forEach(item -> strategyFactory.put(item.getId(), item));
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
+}
