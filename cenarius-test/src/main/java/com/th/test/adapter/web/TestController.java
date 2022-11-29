@@ -1,5 +1,7 @@
 package com.th.test.adapter.web;
 
+import com.th.cenarius.web.annotation.ExceptionHandleAnno;
+import com.th.cenarius.web.annotation.InvokeRecordAnno;
 import com.th.test.app.service.OrderService;
 import com.th.test.domain.Order;
 
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * @Author: Aaron
@@ -32,7 +33,12 @@ public class TestController {
 
     @PostMapping(value = "testObject")
     @ResponseStatus(HttpStatus.OK)
+    @InvokeRecordAnno("Proxy Model Test")
+    @ExceptionHandleAnno
     public Order testObject(@RequestBody @Validated Order key) {
+        if (key.getId() == 1) {
+            throw new RuntimeException("Unexpected operation type");
+        }
         return key;
     }
 

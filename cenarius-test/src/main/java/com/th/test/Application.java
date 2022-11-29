@@ -3,6 +3,8 @@ package com.th.test;
 import com.th.cenarius.event.config.EnableAsyncEventBus;
 import com.th.cenarius.web.advice.DefaultResponseEntityExceptionHandler;
 import com.th.cenarius.web.advice.ResponseBodyHandlerAdvice;
+import com.th.cenarius.web.config.EnableExceptionHandleAspect;
+import com.th.cenarius.web.config.EnableInvokeRecordAspect;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +20,10 @@ import org.springframework.context.annotation.Import;
 @EnableAsyncEventBus
 //@EnableSyncEventBus
 @Import({ResponseBodyHandlerAdvice.class,
-        DefaultResponseEntityExceptionHandler.class
+        DefaultResponseEntityExceptionHandler.class,
 })
+@EnableInvokeRecordAspect
+@EnableExceptionHandleAspect
 public class Application {
 
     public static void main(String[] args) {

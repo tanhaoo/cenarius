@@ -40,9 +40,8 @@ public class ResponseBodyHandlerAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        final ResultResponse.ResultResponseBuilder builder = ResultResponse.builder();
-        final ResponseStatus annotation = Objects.requireNonNull(returnType.getMethod())
-                .getAnnotation(ResponseStatus.class);
+        final ResultResponse.ResultResponseBuilder<?, ?> builder = ResultResponse.builder();
+        final ResponseStatus annotation = Objects.requireNonNull(returnType.getMethod()).getAnnotation(ResponseStatus.class);
         if (annotation != null) {
             builder.status(annotation.value().value());
         }
@@ -55,8 +54,6 @@ public class ResponseBodyHandlerAdvice implements ResponseBodyAdvice<Object> {
         log.error(returnType.getMethod().toString());
         log.error(selectedContentType.toString());
         log.error(selectedConverterType.toString());
-        log.error(request.toString());
-        log.error(response.toString());
         if (body instanceof String) {
             return JSON.toJSONString(builder.build());
         }

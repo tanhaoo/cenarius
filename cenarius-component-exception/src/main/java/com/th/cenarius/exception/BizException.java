@@ -1,4 +1,4 @@
-package com.th.cenaruis.exception;
+package com.th.cenarius.exception;
 
 /**
  * @Author: Aaron

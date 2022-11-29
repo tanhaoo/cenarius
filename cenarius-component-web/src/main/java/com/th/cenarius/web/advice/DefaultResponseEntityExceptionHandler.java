@@ -1,8 +1,8 @@
 package com.th.cenarius.web.advice;
 
 import com.th.cenarius.web.ResultResponse;
-import com.th.cenaruis.exception.BizException;
-import com.th.cenaruis.exception.ErrorDetail;
+import com.th.cenarius.exception.BizException;
+import com.th.cenarius.exception.ErrorDetail;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
