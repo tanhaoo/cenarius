@@ -1,6 +1,7 @@
 package com.th.test.strategy;
 
-import com.th.test.strategy.config.PaymentTypeStrategyFactory;
+import com.th.cenarius.web.common.StrategyFactory;
+import com.th.test.strategy.config.StrategyFactoryConfig;
 import com.th.test.strategy.paymenttype.PaymentTypeStrategy;
 import com.th.test.strategy.paymenttype.impl.PayByCheckoutStrategy;
 import com.th.test.strategy.paymenttype.impl.PayByStripeStrategy;
@@ -17,11 +18,11 @@ import javax.annotation.Resource;
  * @Date: 2022/11/29
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {PaymentTypeStrategyFactory.class, PayByStripeStrategy.class, PayByCheckoutStrategy.class})
+@ContextConfiguration(classes = {StrategyFactoryConfig.class, PayByStripeStrategy.class, PayByCheckoutStrategy.class})
 public class PaymentTypeStrategyTest {
 
     @Resource
-    private PaymentTypeStrategyFactory factory;
+    private StrategyFactory<String, PaymentTypeStrategy> factory;
 
     @Test
     public void testSuccessStrategy() {

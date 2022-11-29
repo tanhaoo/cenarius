@@ -1,6 +1,7 @@
 package com.th.test.strategy;
 
-import com.th.test.strategy.config.PayCallbackStrategyFactory;
+import com.th.cenarius.web.common.StrategyFactory;
+import com.th.test.strategy.config.StrategyFactoryConfig;
 import com.th.test.strategy.paycallback.PayCallbackStrategy;
 import com.th.test.strategy.paycallback.impl.PayFailureStrategy;
 import com.th.test.strategy.paycallback.impl.PaySuccessStrategy;
@@ -17,11 +18,11 @@ import javax.annotation.Resource;
  * @Date: 2022/11/29
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { PayCallbackStrategyFactory.class,PaySuccessStrategy.class, PayFailureStrategy.class})
+@ContextConfiguration(classes = {StrategyFactoryConfig.class, PaySuccessStrategy.class, PayFailureStrategy.class})
 public class PayCallbackStrategyTest {
 
     @Resource
-    private PayCallbackStrategyFactory factory;
+    private StrategyFactory<String, PayCallbackStrategy> factory;
 
     @Test
     public void testSuccessStrategy() {
