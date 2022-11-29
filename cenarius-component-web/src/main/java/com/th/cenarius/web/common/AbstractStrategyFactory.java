@@ -7,6 +7,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 
@@ -23,7 +25,7 @@ public abstract class AbstractStrategyFactory<T, S extends Strategy<T>> implemen
     /**
      * Get Strategy by id
      *
-     * @param id
+     * @param id ID of strategy
      * @return strategy
      */
     public S getStrategy(T id) {
@@ -31,11 +33,22 @@ public abstract class AbstractStrategyFactory<T, S extends Strategy<T>> implemen
     }
 
     /**
-     * Get Strategy type by child class
+     * 通过反射获取策略的类型
      *
-     * @return Class of strategy type
+     * @return 策略的类型
      */
-    public abstract Class<S> getStrategyType();
+    protected Class<S> getStrategyType() {
+        // getClass 获取当前运行时实例的类，getGenericSuperclass 获得泛型父类
+        Type superclass = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) superclass;
+        Type[] actualTypeArguments = pt.getActualTypeArguments();
+        // 获得索引为 1 的实际参数类型，即第二个实际参数的类型
+        Type actualTypeArgument = actualTypeArguments[1];
+        @SuppressWarnings("unchecked")
+        Class<S> result = (Class<S>) actualTypeArgument;
+
+        return result;
+    }
 
     @Override
     public void afterPropertiesSet() {

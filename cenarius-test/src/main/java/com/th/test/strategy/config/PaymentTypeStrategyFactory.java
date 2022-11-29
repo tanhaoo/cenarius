@@ -11,8 +11,4 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PaymentTypeStrategyFactory extends AbstractStrategyFactory<String, PaymentTypeStrategy> {
-    @Override
-    public Class<PaymentTypeStrategy> getStrategyType() {
-        return PaymentTypeStrategy.class;
-    }
 }

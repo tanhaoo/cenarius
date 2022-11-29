@@ -11,8 +11,4 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PayCallbackStrategyFactory extends AbstractStrategyFactory<String, PayCallbackStrategy> {
-    @Override
-    public Class<PayCallbackStrategy> getStrategyType() {
-        return PayCallbackStrategy.class;
-    }
 }
