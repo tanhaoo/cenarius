@@ -1991,5 +1991,43 @@ public class LeetCode {
             bottom--;
         }
     }
+
+    @Test
+    public void testExist() {
+        char[][] data = new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}};
+        String val = "ABCCEDASF";
+        assertTrue(exist(data, val));
+    }
+
+    public boolean exist(char[][] board, String word) {
+        HashSet<List<Integer>> path = new HashSet<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (dfsExist(i, j, board, word, 0, path))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dfsExist(int row, int column, char[][] data, String val, int index, HashSet<List<Integer>> path) {
+        if (val.toCharArray().length == index) {
+            return true;
+        }
+
+        if (row == -1 || column == -1 || row == data.length || column == data[0].length
+                || data[row][column] != val.toCharArray()[index]
+                || path.contains(Arrays.asList(row, column)))
+            return false;
+
+        path.add(Arrays.asList(row, column));
+        boolean res = (dfsExist(row + 1, column, data, val, index + 1, path) ||
+                dfsExist(row - 1, column, data, val, index + 1, path) ||
+                dfsExist(row, column + 1, data, val, index + 1, path) ||
+                dfsExist(row, column - 1, data, val, index + 1, path)
+        );
+        path.remove(Arrays.asList(row, column));
+        return res;
+    }
 }
 
