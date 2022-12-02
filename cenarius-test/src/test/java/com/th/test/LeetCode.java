@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -2027,6 +2028,51 @@ public class LeetCode {
                 dfsExist(row, column - 1, data, val, index + 1, path)
         );
         path.remove(Arrays.asList(row, column));
+        return res;
+    }
+
+    @Test
+    public void testLengthOfLongestSubstring() {
+
+        assertEquals(3, lengthOfLongestSubstring("ynyo"));
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        ArrayList<Character> dict = new ArrayList<>();
+
+        char[] data = s.toCharArray();
+        int max = 0, count = 0;
+        for (int i = 0; i < data.length; i++) {
+
+            while (dict.contains(data[i])) {
+                dict.remove(dict.get(0));
+                count--;
+            }
+
+            dict.add(data[i]);
+            count++;
+
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+
+    public int lengthOfLongestSubstring1(String s) {
+        LinkedHashSet<Character> dict = new LinkedHashSet<>();
+
+        char[] data = s.toCharArray();
+        int res = 0, left = 0;
+        for (int i = 0; i < data.length; i++) {
+
+            while (dict.contains(data[i])) {
+                dict.remove(data[left]);
+                left++;
+            }
+
+            dict.add(data[i]);
+
+            res = Math.max(res, i - left + 1);
+        }
         return res;
     }
 }
