@@ -1,6 +1,6 @@
-package com.th.test.strategy.paymenttype.impl;
+package com.th.test.pattern.strategy.paymenttype.impl;
 
-import com.th.test.strategy.paymenttype.PaymentTypeStrategy;
+import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
 
 import org.springframework.stereotype.Component;
 

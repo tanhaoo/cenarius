@@ -1,6 +1,6 @@
-package com.th.test.strategy.paycallback.impl;
+package com.th.test.pattern.strategy.paycallback.impl;
 
-import com.th.test.strategy.paycallback.PayCallbackStrategy;
+import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
 
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-public class PayFailureStrategy implements PayCallbackStrategy {
+public class PaySuccessStrategy implements PayCallbackStrategy {
     @Override
     public String getPaymentStatus() {
-        return "failure";
+        return "success";
     }
 
     @Override

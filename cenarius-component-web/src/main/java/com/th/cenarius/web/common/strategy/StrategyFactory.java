@@ -1,4 +1,4 @@
-package com.th.cenarius.web.common;
+package com.th.cenarius.web.common.strategy;
 
 import com.google.common.collect.Maps;
 

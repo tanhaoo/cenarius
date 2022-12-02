@@ -1,10 +1,10 @@
-package com.th.test.strategy;
+package com.th.test.pattern.strategy;
 
-import com.th.cenarius.web.common.StrategyFactory;
-import com.th.test.strategy.config.StrategyFactoryConfig;
-import com.th.test.strategy.paymenttype.PaymentTypeStrategy;
-import com.th.test.strategy.paymenttype.impl.PayByCheckoutStrategy;
-import com.th.test.strategy.paymenttype.impl.PayByStripeStrategy;
+import com.th.cenarius.web.common.strategy.StrategyFactory;
+import com.th.test.pattern.strategy.config.StrategyFactoryConfig;
+import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
+import com.th.test.pattern.strategy.paymenttype.impl.PayByCheckoutStrategy;
+import com.th.test.pattern.strategy.paymenttype.impl.PayByStripeStrategy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

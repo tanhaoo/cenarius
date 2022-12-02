@@ -1,6 +1,6 @@
-package com.th.test.strategy.paycallback;
+package com.th.test.pattern.strategy.paycallback;
 
-import com.th.cenarius.web.common.Strategy;
+import com.th.cenarius.web.common.strategy.Strategy;
 
 /**
  * @Author: Aaron

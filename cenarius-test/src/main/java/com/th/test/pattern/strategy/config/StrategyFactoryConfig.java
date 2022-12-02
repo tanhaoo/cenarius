@@ -1,17 +1,18 @@
-package com.th.test.strategy.config;
+package com.th.test.pattern.strategy.config;
 
-import com.th.cenarius.web.common.StrategyFactory;
-import com.th.test.strategy.paycallback.PayCallbackStrategy;
-import com.th.test.strategy.paymenttype.PaymentTypeStrategy;
+import com.th.cenarius.web.common.strategy.StrategyFactory;
+import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
+import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
  * @Author: Aaron
  * @Date: 2022/11/29
  */
-@Component
+@Configuration
 public class StrategyFactoryConfig {
 
     @Bean

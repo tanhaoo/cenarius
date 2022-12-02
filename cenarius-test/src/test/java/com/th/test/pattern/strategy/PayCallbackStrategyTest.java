@@ -1,10 +1,10 @@
-package com.th.test.strategy;
+package com.th.test.pattern.strategy;
 
-import com.th.cenarius.web.common.StrategyFactory;
-import com.th.test.strategy.config.StrategyFactoryConfig;
-import com.th.test.strategy.paycallback.PayCallbackStrategy;
-import com.th.test.strategy.paycallback.impl.PayFailureStrategy;
-import com.th.test.strategy.paycallback.impl.PaySuccessStrategy;
+import com.th.cenarius.web.common.strategy.StrategyFactory;
+import com.th.test.pattern.strategy.config.StrategyFactoryConfig;
+import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
+import com.th.test.pattern.strategy.paycallback.impl.PayFailureStrategy;
+import com.th.test.pattern.strategy.paycallback.impl.PaySuccessStrategy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
