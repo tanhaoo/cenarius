@@ -2104,6 +2104,54 @@ public class LeetCode {
         return res;
     }
 
-  
+    @Test
+    public void testMinWindow() {
+        assertEquals("BANC", minWindow("ADOBECODEBANC",
+                "ABC"));
+    }
+
+
+    public String minWindow(String s, String t) {
+        HashMap<Character, Integer> expect = new HashMap<>();
+        HashMap<Character, Integer> cur = new HashMap<>();
+        int expectCount, conditionCount, left;
+        left = conditionCount = 0;
+
+        // expect string
+        for (char c : t.toCharArray()) {
+            expect.put(c, expect.getOrDefault(c, 0) + 1);
+        }
+        expectCount = expect.size();
+
+        StringBuilder curResult = new StringBuilder();
+        String result = "";
+        char[] data = s.toCharArray();
+        for (int right = 0; right < data.length; right++) {
+            curResult.append(data[right]);
+
+            if (expect.containsKey(data[right])) {
+                cur.put(data[right], cur.getOrDefault(data[right], 0) + 1);
+                // 千万不要用 == 来判断 Integer 类型是否相同，只能判断到128，后面到就不行了，equal equal equal
+                if (expect.get(data[right]).equals(cur.get(data[right])))
+                    conditionCount++;
+            }
+
+            while (expectCount == conditionCount) {
+                if (result.equals(""))
+                    result = curResult.toString();
+                else
+                    result = (result.length() < curResult.length()) ? result : curResult.toString();
+
+                if (cur.containsKey(data[left])) {
+                    cur.put(data[left], cur.get(data[left]) - 1);
+                    if (expect.get(data[left]) > cur.get(data[left]))
+                        conditionCount--;
+                }
+                left++;
+                curResult.deleteCharAt(0);
+            }
+        }
+        return result;
+    }
 }
 
