@@ -2075,5 +2075,35 @@ public class LeetCode {
         }
         return res;
     }
+
+    @Test
+    public void testCharacterReplacement() {
+        assertEquals(4, characterReplacement("ABAB", 2));
+    }
+
+    public int characterReplacement(String s, int k) {
+        HashMap<Character, Integer> dict = new HashMap<>();
+        char[] data = s.toCharArray();
+        int res = 0, max = 0, left = 0;
+        // sliding window
+        for (int i = 0; i < data.length; i++) {
+            char key = data[i];
+            dict.put(key, dict.getOrDefault(key, 0) + 1);
+            max = Math.max(dict.get(key), max);
+
+            if ((max + k) < (i - left + 1)) {
+                char leftKey = data[left];
+                dict.put(leftKey, dict.get(leftKey) - 1);
+                // shift to right
+                left++;
+            } else {
+                // length of substring
+                res = i - left + 1;
+            }
+        }
+        return res;
+    }
+
+  
 }
 
