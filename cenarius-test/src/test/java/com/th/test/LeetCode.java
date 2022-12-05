@@ -2162,25 +2162,70 @@ public class LeetCode {
         except.add(Arrays.asList("nat", "tan"));
         except.add(Arrays.asList("ate", "eat", "tea"));
 
-        assertEquals(except, groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
+        assertEquals(except, groupAnagrams1(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
 
     }
 
     public List<List<String>> groupAnagrams(String[] strs) {
         HashMap<String, ArrayList<String>> result = new HashMap<>();
-        for (int i = 0; i < strs.length; i++) {
-            char[] temp = strs[i].toCharArray();
+        for (String str : strs) {
+            char[] temp = str.toCharArray();
             Arrays.sort(temp);
             String key = new String(temp);
 
             if (result.containsKey(key)) {
-                result.get(key).add(strs[i]);
+                result.get(key).add(str);
             } else {
-                result.put(key, new ArrayList<>(Arrays.asList(strs[i])));
+                result.put(key, new ArrayList<>(Arrays.asList(str)));
             }
         }
 
-        return result.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(result.values());
     }
+
+    public List<List<String>> groupAnagrams1(String[] strs) {
+        HashMap<List<Integer>, ArrayList<String>> result = new HashMap<>();
+        for (String str : strs) {
+            ArrayList<Integer> dict = new ArrayList<>(25);
+            for (int j = 0; j < 26; j++) {
+                dict.add(0);
+            }
+
+            char[] temp = str.toCharArray();
+            for (char c : temp) {
+                dict.set(c - 'a', dict.get(c - 'a') + 1);
+            }
+
+            if (result.containsKey(dict)) {
+                result.get(dict).add(str);
+            } else {
+                result.put(dict, new ArrayList<>(Arrays.asList(str)));
+            }
+        }
+        return new ArrayList<>(result.values());
+    }
+
+    public List<List<String>> groupAnagrams2(String[] strs) {
+        HashMap<String, ArrayList<String>> result = new HashMap<>();
+        for (String str : strs) {
+            int[] dict = new int[26];
+
+            char[] temp = str.toCharArray();
+            for (char c : temp) {
+                dict[c - 'a'] += 1;
+            }
+
+            String key = Arrays.toString(dict);
+
+            if (result.containsKey(key)) {
+                result.get(key).add(str);
+            } else {
+                result.put(key, new ArrayList<>(Arrays.asList(str)));
+            }
+        }
+        return new ArrayList<>(result.values());
+    }
+
+
 }
 
