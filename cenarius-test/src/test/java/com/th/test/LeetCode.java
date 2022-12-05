@@ -2153,5 +2153,34 @@ public class LeetCode {
         }
         return result;
     }
+
+    @Test
+    public void testGroupAnagrams() {
+
+        ArrayList<List<String>> except = new ArrayList<>();
+        except.add(new ArrayList<>(Collections.singleton("bat")));
+        except.add(Arrays.asList("nat", "tan"));
+        except.add(Arrays.asList("ate", "eat", "tea"));
+
+        assertEquals(except, groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
+
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, ArrayList<String>> result = new HashMap<>();
+        for (int i = 0; i < strs.length; i++) {
+            char[] temp = strs[i].toCharArray();
+            Arrays.sort(temp);
+            String key = new String(temp);
+
+            if (result.containsKey(key)) {
+                result.get(key).add(strs[i]);
+            } else {
+                result.put(key, new ArrayList<>(Arrays.asList(strs[i])));
+            }
+        }
+
+        return result.values().stream().collect(Collectors.toList());
+    }
 }
 
