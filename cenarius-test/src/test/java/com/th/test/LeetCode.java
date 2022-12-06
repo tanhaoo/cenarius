@@ -2277,6 +2277,71 @@ public class LeetCode {
         return stack.isEmpty();
     }
 
+    @Test
+    public void testIsPalindrome() {
+        int a = '0';
+        int b = '9';
+        int c = ' ';
+        System.out.println(a + " " + b + " " + c);
+        assertEquals(true, isPalindrome2("A man, a plan, a canal: Panama"));
+    }
+
+    public boolean isPalindrome(String s) {
+        char[] data = s.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        for (char val : data) {
+            if (val >= 65 && val <= 90) {
+                val += 32;
+                builder.append(val);
+            } else if ((val >= 97 && val <= 122) || val >= 48 && val <= 57) {
+                builder.append(val);
+            }
+        }
+        StringBuilder original = new StringBuilder(builder);
+
+        builder.reverse();
+        return original.toString().equals(builder.toString());
+    }
+
+    public boolean isPalindrome1(String s) {
+        char[] data = s.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        for (char val : data) {
+            if (Character.isLetterOrDigit(val)) {
+                builder.append(Character.toLowerCase(val));
+            }
+        }
+        StringBuilder original = new StringBuilder(builder);
+
+        builder.reverse();
+        return original.toString().equals(builder.toString());
+    }
+
+    public boolean isPalindrome2(String s) {
+        char[] data = s.toCharArray();
+        int left, right;
+        left = 0;
+        right = data.length - 1;
+
+        while (left <= right) {
+
+            while (!isAlphaDigit(data[left]))
+                left++;
+
+            while (!isAlphaDigit(data[right]))
+                right--;
+
+            if (Character.toLowerCase(data[left]) != Character.toLowerCase(data[right]))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public boolean isAlphaDigit(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+    }
 
 }
 
