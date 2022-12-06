@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import lombok.EqualsAndHashCode;
@@ -2224,6 +2225,56 @@ public class LeetCode {
             }
         }
         return new ArrayList<>(result.values());
+    }
+
+    @Test
+    public void testIsValid() {
+        int a = '(';
+        int b = ']';
+        System.out.println(a + " " + b);
+        assertEquals(true, isValid1("(]"));
+    }
+
+    public boolean isValid(String s) {
+        char[] data = s.toCharArray();
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char val : data) {
+            if (stack.isEmpty())
+                stack.push(val);
+            else {
+                Character top = stack.peek();
+                if (top - val == -2 || top - val == -1)
+                    stack.pop();
+                else
+                    stack.push(val);
+            }
+
+        }
+        return stack.isEmpty();
+    }
+
+    public boolean isValid1(String s) {
+        HashMap<Character, Character> dict = new HashMap<>();
+        dict.put('}', '{');
+        dict.put(']', '[');
+        dict.put(')', '(');
+
+        char[] data = s.toCharArray();
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char val : data) {
+            if (dict.containsKey(val)) {
+                if (stack.isEmpty())
+                    return false;
+                if (!(dict.get(val) == stack.pop()))
+                    return false;
+            } else
+                stack.push(val);
+        }
+        return stack.isEmpty();
     }
 
 
