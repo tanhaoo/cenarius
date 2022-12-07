@@ -2422,5 +2422,36 @@ public class LeetCode {
         }
         return result;
     }
+
+    @Test
+    public void testCountSubstrings() {
+
+        assertEquals(6, countSubstrings("aaa"));
+    }
+
+    public int countSubstrings(String s) {
+        int count, left, right;
+        char[] data = s.toCharArray();
+        count = 0;
+        for (int i = 0; i < data.length; i++) {
+            right = left = i;
+
+            while (left >= 0 && right < data.length && data[left] == data[right]) {
+                count++;
+                right++;
+                left--;
+            }
+
+            right = left = i;
+            right++;
+
+            while (left >= 0 && right < data.length && data[left] == data[right]) {
+                count++;
+                right++;
+                left--;
+            }
+        }
+        return count;
+    }
 }
 
