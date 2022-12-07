@@ -7,7 +7,7 @@ package com.th.cenarius.web.common.strategy;
 public interface Strategy<T> {
 
     /**
-     * Get ID
+     * Get identify
      *
      * @return ID
      */

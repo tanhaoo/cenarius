@@ -25,13 +25,13 @@ public class PaymentTypeStrategyTest {
     private StrategyFactory<String, PaymentTypeStrategy> factory;
 
     @Test
-    public void testSuccessStrategy() {
+    public void testStripePayStrategy() {
         PaymentTypeStrategy strategy = factory.getStrategy("Stripe");
         strategy.doPay();
     }
 
     @Test
-    public void testFailureStrategy() {
+    public void testCheckoutPayStrategy() {
         PaymentTypeStrategy strategy = factory.getStrategy("Checkout");
         strategy.doPay();
     }

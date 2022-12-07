@@ -25,7 +25,7 @@ public class StrategyFactory<T, S extends Strategy<T>> implements InitializingBe
     /**
      * Get Strategy by id
      *
-     * @param id ID of strategy
+     * @param id identify of strategy
      * @return strategy
      */
     public S getStrategy(T id) {
@@ -35,7 +35,7 @@ public class StrategyFactory<T, S extends Strategy<T>> implements InitializingBe
     /**
      * Strategy type
      *
-     * @return 策略的类型
+     * @return type of strategy
      */
     protected Class<S> getStrategyType() {
         return this.strategyType;
