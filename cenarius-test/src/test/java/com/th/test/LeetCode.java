@@ -2453,5 +2453,56 @@ public class LeetCode {
         }
         return count;
     }
+
+    @Test
+    public void testEncodeDecode() {
+
+        ArrayList<String> data = new ArrayList<>();
+        data.add("lint");
+        data.add("code");
+        data.add("love");
+        data.add("you");
+        String encode = encode(data);
+        System.out.println(encode);
+        System.out.println(decode(encode));
+    }
+
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    public String encode(List<String> strs) {
+        // write your code here
+        String res = "";
+        for (String str : strs) {
+            res = res + str.length() + "#" + str;
+        }
+        return res;
+    }
+
+    /*
+     * @param str: A string
+     * @return: dcodes a single string to a list of strings
+     */
+    public List<String> decode(String str) {
+        // write your code here
+        String index = "";
+        ArrayList<String> result = new ArrayList<>();
+        int right, strLen;
+        char[] data = str.toCharArray();
+        for (int left = 0; left < data.length; left++) {
+
+            if (data[left] != '#') {
+                index += data[left];
+            } else {
+                strLen = Integer.parseInt(index);
+                right = (left + strLen);
+                result.add(str.substring(left + 1, right + 1));
+                left = right;
+                index = "";
+            }
+        }
+        return result;
+    }
 }
 
