@@ -2343,5 +2343,84 @@ public class LeetCode {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
     }
 
+    @Test
+    public void testLongestPalindrome() {
+        assertEquals("bab", longestPalindrome("babad"));
+    }
+
+    public String longestPalindrome(String s) {
+        char[] data = s.toCharArray();
+
+        int left, right, resLen, curLen;
+        String result = "";
+        resLen = 0;
+
+        for (int i = 0; i < data.length; i++) {
+            right = left = i;
+            while (left >= 0 && right < data.length) {
+                if (data[left] == data[right]) {
+                    curLen = right - left + 1;
+                    if (curLen > resLen) {
+                        resLen = curLen;
+                        result = s.substring(left, right + 1);
+                    }
+
+                    left--;
+                    right++;
+                } else
+                    break;
+            }
+
+            left = right = i;
+            right++;
+            while (left >= 0 && right < data.length) {
+                if (data[left] == data[right]) {
+                    curLen = right - left + 1;
+                    if (curLen > resLen) {
+                        resLen = curLen;
+                        result = s.substring(left, right + 1);
+                    }
+                    left--;
+                    right++;
+                } else
+                    break;
+            }
+        }
+        return result;
+    }
+
+    public String longestPalindrome1(String s) {
+        char[] data = s.toCharArray();
+
+        int left, right, resLen, curLen;
+        String result = "";
+        resLen = 0;
+
+        for (int i = 0; i < data.length; i++) {
+            right = left = i;
+            while (left >= 0 && right < data.length && data[left] == data[right]) {
+                curLen = right - left + 1;
+                if (curLen > resLen) {
+                    resLen = curLen;
+                    result = s.substring(left, right + 1);
+                }
+                left--;
+                right++;
+            }
+
+            left = right = i;
+            right++;
+            while (left >= 0 && right < data.length && data[left] == data[right]) {
+                curLen = right - left + 1;
+                if (curLen > resLen) {
+                    resLen = curLen;
+                    result = s.substring(left, right + 1);
+                }
+                left--;
+                right++;
+            }
+        }
+        return result;
+    }
 }
 
