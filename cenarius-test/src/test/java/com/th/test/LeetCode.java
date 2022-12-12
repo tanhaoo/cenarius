@@ -2504,5 +2504,100 @@ public class LeetCode {
         }
         return result;
     }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    @Test
+    public void testMaxDepth() {
+        /**
+         *                3
+         *         9            20
+         *    null   null    15    7
+         */
+        assertEquals(3, maxDepth3(new TreeNode(3, new TreeNode(9, null, null), new TreeNode(20, new TreeNode(15), new TreeNode(7)))));
+    }
+
+    public int maxDepth(TreeNode root) {
+        return dfsMaxDepth(root, 0);
+    }
+
+    public int dfsMaxDepth(TreeNode node, int depth) {
+        if (node == null)
+            return depth;
+
+        int leftMax = dfsMaxDepth(node.left, depth + 1);
+        int rightMax = dfsMaxDepth(node.right, depth + 1);
+
+        return Math.max(leftMax, rightMax);
+    }
+
+    // recursive solution
+    public int maxDepth1(TreeNode root) {
+        if (root == null)
+            return 0;
+        return 1 + Math.max(maxDepth1(root.left), maxDepth1(root.right));
+    }
+
+    // breadth first search solution
+    public int maxDepth2(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> data = new LinkedList<>();
+        data.add(root);
+        int result = 0;
+        while (!data.isEmpty()) {
+            int size = data.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode parent = data.poll();
+                if (parent.left != null)
+                    data.add(parent.left);
+                if (parent.right != null)
+                    data.add(parent.right);
+            }
+            result++;
+        }
+        return result;
+    }
+
+    // depth first search solution
+    public int maxDepth3(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        if (root != null) {
+            root.val = 1;
+            stack.push(root);
+        }
+        int result = 0;
+
+        while (!stack.isEmpty()) {
+            TreeNode temp = stack.pop();
+            if (temp.right != null) {
+                temp.right.val = temp.val + 1;
+                stack.push(temp.right);
+            }
+            if (temp.left != null) {
+                temp.left.val = temp.val + 1;
+                stack.push(temp.left);
+            }
+            result = Math.max(result, temp.val);
+        }
+        return result;
+    }
+
 }
 
