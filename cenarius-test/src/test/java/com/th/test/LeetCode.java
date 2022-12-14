@@ -105,8 +105,7 @@ public class LeetCode {
     public boolean containsDuplicate(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
         for (int num : nums) {
-            if (set.contains(num))
-                return true;
+            if (set.contains(num)) return true;
             set.add(num);
         }
         return false;
@@ -200,10 +199,8 @@ public class LeetCode {
             mid = (left + right) / 2;
             min = Math.min(min, nums[mid]);
 
-            if (nums[mid] >= nums[left])
-                left = mid + 1;
-            else
-                right = mid - 1;
+            if (nums[mid] >= nums[left]) left = mid + 1;
+            else right = mid - 1;
         }
         return min;
     }
@@ -220,8 +217,7 @@ public class LeetCode {
         right = nums.length - 1;
         while (left <= right) {
             mid = (left + right) / 2;
-            if (nums[mid] == target)
-                return mid;
+            if (nums[mid] == target) return mid;
             if (nums[mid] >= nums[left]) {
                 if (target > nums[mid] || target < nums[left]) {
                     left = mid + 1;
@@ -244,10 +240,7 @@ public class LeetCode {
         int[] nums = {-1, 0, 1, 2, -1, -4};
         int[] failExample = {3, 0, -2, -1, 1, 2};
 
-        List<List<Integer>> collect =
-                Arrays.stream(new int[][]{{-1, -1, 2}, {-1, 0, 1}})
-                        .map(item -> Arrays.stream(item).boxed().collect(Collectors.toList()))
-                        .collect(Collectors.toList());
+        List<List<Integer>> collect = Arrays.stream(new int[][]{{-1, -1, 2}, {-1, 0, 1}}).map(item -> Arrays.stream(item).boxed().collect(Collectors.toList())).collect(Collectors.toList());
 
         assertFalse(collect.retainAll(threeSum(nums)));
     }
@@ -258,8 +251,7 @@ public class LeetCode {
         int first;
         int left, right;
         for (int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1])
-                continue;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             first = nums[i];
 
             left = i + 1;
@@ -268,10 +260,8 @@ public class LeetCode {
             while (left < right) {
                 int sum = first + nums[left] + nums[right];
 
-                if (sum > 0)
-                    right--;
-                else if (sum < 0)
-                    left++;
+                if (sum > 0) right--;
+                else if (sum < 0) left++;
                 else {
                     result.add(Arrays.asList(first, nums[left], nums[right]));
                     left++;
@@ -352,8 +342,7 @@ public class LeetCode {
             count = 0;
             cur = i;
             while (cur != 0) {
-                if (cur % 2 == 1)
-                    count++;
+                if (cur % 2 == 1) count++;
                 cur >>>= 1;
 //                cur /= 2;
             }
@@ -400,10 +389,8 @@ public class LeetCode {
             temp1 ^= i;
         }
         for (int i = 0; i < nums.length; i++) {
-            if (i == 0)
-                temp2 = nums[i];
-            else
-                temp2 ^= nums[i];
+            if (i == 0) temp2 = nums[i];
+            else temp2 ^= nums[i];
         }
         return temp1 ^ temp2;
     }
@@ -450,8 +437,7 @@ public class LeetCode {
     }
 
     public int climbStairs(int n) {
-        if (n == 0 || n == 1)
-            return 1;
+        if (n == 0 || n == 1) return 1;
         return climbStairs(n - 1) + climbStairs(n - 2);
     }
 
@@ -459,10 +445,8 @@ public class LeetCode {
         int one, two;
         one = two = 1;
         for (int i = 0; i < n; i++) {
-            if (i % 2 == 0)
-                one += two;
-            else
-                two += one;
+            if (i % 2 == 0) one += two;
+            else two += one;
         }
         return n % 2 == 0 ? one : two;
     }
@@ -515,10 +499,8 @@ public class LeetCode {
                     dp[i] = Arrays.stream(new int[]{dp[i], 1 + dp[i - coins[j]]}).min().getAsInt();
             }
         }
-        if (dp[amount] != amount + 1)
-            return dp[amount];
-        else
-            return -1;
+        if (dp[amount] != amount + 1) return dp[amount];
+        else return -1;
     }
 
     public int coinChangeWithResult(int[] coins, int amount) {
@@ -546,10 +528,8 @@ public class LeetCode {
 
         result.forEach(System.out::println);
 
-        if (dp[amount] != amount + 1)
-            return dp[amount];
-        else
-            return -1;
+        if (dp[amount] != amount + 1) return dp[amount];
+        else return -1;
     }
 
     @Test
@@ -565,8 +545,7 @@ public class LeetCode {
         Arrays.fill(dp, 1);
         for (int i = nums.length - 2; i >= 0; i--) {
             for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] < nums[j])
-                    dp[i] = dp[i] > (1 + dp[j]) ? dp[i] : (1 + dp[j]);
+                if (nums[i] < nums[j]) dp[i] = dp[i] > (1 + dp[j]) ? dp[i] : (1 + dp[j]);
             }
         }
         return Arrays.stream(dp).max().getAsInt();
@@ -620,8 +599,7 @@ public class LeetCode {
 
         for (int i = char1.length - 1; i >= 0; i--) {
             for (int j = char2.length - 1; j >= 0; j--) {
-                if (char1[i] == char2[j])
-                    dp[i][j] = 1 + dp[i + 1][j + 1];
+                if (char1[i] == char2[j]) dp[i][j] = 1 + dp[i + 1][j + 1];
                 else
                     dp[i][j] = Arrays.stream(new int[]{dp[i + 1][j], dp[i][j + 1]}).max().getAsInt();
             }
@@ -646,8 +624,7 @@ public class LeetCode {
             for (String curStr : wordDict) {
                 if (tempStr.length() >= curStr.length() && tempStr.startsWith(curStr))
                     dp[i] = dp[i + curStr.length()];
-                if (dp[i])
-                    break;
+                if (dp[i]) break;
             }
         }
         return dp[0];
@@ -673,8 +650,7 @@ public class LeetCode {
             result.add(new ArrayList<>(cur));
             return;
         }
-        if (index >= candidates.length || total > target)
-            return;
+        if (index >= candidates.length || total > target) return;
 
         cur.add(candidates[index]);
         dfs(index, cur, total + candidates[index], candidates, target, result);
@@ -694,16 +670,13 @@ public class LeetCode {
          * 2    7   9   3   1
          * 2    7   11  11  12
          */
-        if (nums.length < 2)
-            return nums[0];
+        if (nums.length < 2) return nums[0];
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
         dp[1] = Math.max(nums[1], nums[0]);
         for (int i = 2; i < nums.length; i++) {
-            if (nums[i] + dp[i - 2] > dp[i - 1])
-                dp[i] = nums[i] + dp[i - 2];
-            else
-                dp[i] = dp[i - 1];
+            if (nums[i] + dp[i - 2] > dp[i - 1]) dp[i] = nums[i] + dp[i - 2];
+            else dp[i] = dp[i - 1];
         }
 
         return Arrays.stream(dp).max().getAsInt();
@@ -716,15 +689,13 @@ public class LeetCode {
          * 2    7   9   3   1
          * 2    7   11  11  12
          */
-        if (nums.length < 2)
-            return nums[0];
+        if (nums.length < 2) return nums[0];
         int first, second, temp;
         first = nums[0];
         second = nums[1] > nums[0] ? nums[1] : nums[0];
         for (int i = 2; i < nums.length; i++) {
             temp = second;
-            if (nums[i] + first > second)
-                second = nums[i] + first;
+            if (nums[i] + first > second) second = nums[i] + first;
             first = temp;
         }
         return first > second ? first : second;
@@ -760,8 +731,7 @@ public class LeetCode {
     }
 
     public int secondRob(int[] nums) {
-        if (nums.length < 2)
-            return nums[0];
+        if (nums.length < 2) return nums[0];
         //2 7 9 3 1 5 6
         int[] start = new int[nums.length - 1], end = new int[nums.length - 1];
         for (int i = 0; i < start.length; i++) {
@@ -801,10 +771,8 @@ public class LeetCode {
         Arrays.fill(dp, 1);
 
         for (int i = chars.length - 1; i >= 0; i--) {
-            if (chars[i] == '0')
-                dp[i] = 0;
-            else
-                dp[i] = dp[i + 1];
+            if (chars[i] == '0') dp[i] = 0;
+            else dp[i] = dp[i + 1];
 
             if (i + 1 < chars.length && (chars[i] == '1' || (chars[i] == '2' && Integer.parseInt(String.valueOf(chars[i + 1])) < 7)))
                 dp[i] += dp[i + 2];
@@ -823,10 +791,8 @@ public class LeetCode {
         }
         for (int i = 1; i < dp.length; i++) {
 
-            if (data[i - 1] == 0)
-                dp[i] = 0;
-            else
-                dp[i] = dp[i - 1];
+            if (data[i - 1] == 0) dp[i] = 0;
+            else dp[i] = dp[i - 1];
 
             if (i - 2 >= 0 && (data[i - 2] == 1 || (data[i - 2] == 2 && data[i - 1] < 7)))
                 dp[i] += dp[i - 2];
@@ -855,8 +821,7 @@ public class LeetCode {
         int[][] data = new int[m + 1][n + 1];
         for (int i = data.length - 2; i >= 0; i--) {
             for (int j = data[i].length - 2; j >= 0; j--) {
-                if (i == data.length - 2 && j == data[i].length - 2)
-                    data[i][j] = 1;
+                if (i == data.length - 2 && j == data[i].length - 2) data[i][j] = 1;
                 else {
                     data[i][j] = data[i + 1][j] + data[i][j + 1];
                 }
@@ -902,8 +867,7 @@ public class LeetCode {
         int goal = nums.length - 1;
 
         for (int i = nums.length - 2; i >= 0; i--) {
-            if (i + nums[i] >= goal)
-                goal = i;
+            if (i + nums[i] >= goal) goal = i;
         }
         return goal == 0 ? true : false;
     }
@@ -982,15 +946,13 @@ public class LeetCode {
 
         for (int i = 0; i < prerequisites.length; i++) {
             Integer course = prerequisites[i][0];
-            if (dataMap.get(course) == null)
-                dataMap.put(course, new ArrayList<>());
+            if (dataMap.get(course) == null) dataMap.put(course, new ArrayList<>());
             dataMap.get(course).add(prerequisites[i][1]);
         }
 
         for (Integer integer : dataMap.keySet()) {
             // 课程可能不是一张图，是分割的，所以每个都要试
-            if (!dfsCanFinish(integer, dataMap, visitSet))
-                return false;
+            if (!dfsCanFinish(integer, dataMap, visitSet)) return false;
         }
         System.out.println(dataMap);
         return true;
@@ -1013,8 +975,7 @@ public class LeetCode {
         }
 
         for (Integer integer : dataMap.get(curVal)) {
-            if (!dfsCanFinish(integer, dataMap, visitSet))
-                return false;
+            if (!dfsCanFinish(integer, dataMap, visitSet)) return false;
         }
         visitSet.remove(curVal);
         dataMap.put(curVal, new ArrayList<>());
@@ -1026,15 +987,7 @@ public class LeetCode {
         /**
          * Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
          */
-        ArrayList<List<Integer>> lists = new ArrayList<>(
-                Arrays.asList(
-                        Arrays.asList(0, 4),
-                        Arrays.asList(1, 3),
-                        Arrays.asList(1, 4),
-                        Arrays.asList(2, 2),
-                        Arrays.asList(3, 0),
-                        Arrays.asList(3, 1),
-                        Arrays.asList(4, 0)));
+        ArrayList<List<Integer>> lists = new ArrayList<>(Arrays.asList(Arrays.asList(0, 4), Arrays.asList(1, 3), Arrays.asList(1, 4), Arrays.asList(2, 2), Arrays.asList(3, 0), Arrays.asList(3, 1), Arrays.asList(4, 0)));
         System.out.println(lists);
 
         assertEquals(false, lists.retainAll(pacificAtlantic(new int[][]{{1, 2, 2, 3, 5}, {3, 2, 3, 4, 4}, {2, 4, 5, 3, 1}, {6, 7, 1, 4, 5}, {5, 1, 1, 2, 4}})));
@@ -1066,9 +1019,7 @@ public class LeetCode {
 
     public void dfsPacificAtlantic(int[][] height, int row, int column, HashSet<List<Integer>> visit, int previous) {
 
-        if (row < 0 || row >= height.length || column < 0 || column >= height[0].length
-                || height[row][column] < previous
-                || visit.contains(Arrays.asList(row, column)))
+        if (row < 0 || row >= height.length || column < 0 || column >= height[0].length || height[row][column] < previous || visit.contains(Arrays.asList(row, column)))
             return;
         visit.add(Arrays.asList(row, column));
 
@@ -1080,12 +1031,7 @@ public class LeetCode {
 
     @Test
     public void testNumIslands() {
-        assertEquals(1, numIslands(
-                new char[][]{
-                        {'1', '1', '1', '1', '0'},
-                        {'1', '1', '0', '1', '0'},
-                        {'1', '1', '0', '0', '0'},
-                        {'0', '0', '0', '0', '0'}}));
+        assertEquals(1, numIslands(new char[][]{{'1', '1', '1', '1', '0'}, {'1', '1', '0', '1', '0'}, {'1', '1', '0', '0', '0'}, {'0', '0', '0', '0', '0'}}));
 
     }
 
@@ -1115,13 +1061,7 @@ public class LeetCode {
             for (int i = 0; i < directions.length; i++) {
                 row = poll.get(0) + directions[i][0];
                 col = poll.get(1) + directions[i][1];
-                if (row >= 0 &&
-                        col >= 0 &&
-                        row < grid.length &&
-                        col < grid[0].length &&
-                        !visit.contains(Arrays.asList(row, col)) &&
-                        !curVisit.contains(Arrays.asList(row, col)) &&
-                        grid[row][col] == '1') {
+                if (row >= 0 && col >= 0 && row < grid.length && col < grid[0].length && !visit.contains(Arrays.asList(row, col)) && !curVisit.contains(Arrays.asList(row, col)) && grid[row][col] == '1') {
                     visit.add(Arrays.asList(row, col));
                     curVisit.add(Arrays.asList(row, col));
                 }
@@ -1149,8 +1089,7 @@ public class LeetCode {
     }
 
     public int recursiveLongest(HashSet<Integer> data, Integer value, Iterator<Integer> iterator) {
-        if (!data.contains(value))
-            return 1;
+        if (!data.contains(value)) return 1;
         data.remove(value);
         return recursiveLongest(data, value - 1, iterator) + recursiveLongest(data, value + 1, iterator);
     }
@@ -1164,8 +1103,7 @@ public class LeetCode {
         while (iterator.hasNext()) {
             Integer cur = iterator.next();
             Integer length = 0;
-            if (data.contains(cur - 1))
-                continue;
+            if (data.contains(cur - 1)) continue;
 
             while (data.contains(cur + length)) {
                 length += 1;
@@ -1207,8 +1145,7 @@ public class LeetCode {
                 continue;
             }
             // 当前值与目标值重合了，取最大范围(首位取最小，末位取最大)
-            newInterval = new int[]{Arrays.stream(new int[]{intervals[i][0], newInterval[0]}).min().getAsInt(),
-                    Arrays.stream(new int[]{intervals[i][1], newInterval[1]}).max().getAsInt()};
+            newInterval = new int[]{Arrays.stream(new int[]{intervals[i][0], newInterval[0]}).min().getAsInt(), Arrays.stream(new int[]{intervals[i][1], newInterval[1]}).max().getAsInt()};
         }
         // CASE2：没有命中CASE1则代表newInterval就是集合中的最大值，加进来，返回
         result.add(newInterval);
@@ -1263,8 +1200,7 @@ public class LeetCode {
             // 相交不算覆盖，所以temp[1]>就行，不用>=,如果两段覆盖在一起，删末位更大的值，因为他更有可能与下一点重合
             if (temp[0] <= intervals[i][0] && temp[1] > intervals[i][0]) {
                 count++;
-                if (intervals[i][1] < temp[1])
-                    temp = intervals[i];
+                if (intervals[i][1] < temp[1]) temp = intervals[i];
             } else {
                 temp = intervals[i];
             }
@@ -1299,10 +1235,7 @@ public class LeetCode {
 
         @Override
         public String toString() {
-            return "Interval{" +
-                    "start=" + start +
-                    ", end=" + end +
-                    '}';
+            return "Interval{" + "start=" + start + ", end=" + end + '}';
         }
     }
 
@@ -1316,10 +1249,8 @@ public class LeetCode {
         if (intervals.size() == 0) return true;
         int preEnd = intervals.get(0).end;
         for (int i = 1; i < intervals.size(); i++) {
-            if (intervals.get(i).start < preEnd)
-                return false;
-            else
-                preEnd = intervals.get(i).end;
+            if (intervals.get(i).start < preEnd) return false;
+            else preEnd = intervals.get(i).end;
         }
         return true;
     }
@@ -1327,9 +1258,7 @@ public class LeetCode {
     @Test
     public void testMinMeetingRooms() {
 //        assertEquals(2, minMeetingRooms(Arrays.asList(new Interval(0, 30), new Interval(5, 10), new Interval(15, 20))));
-        assertEquals(7, minMeetingRooms1(Arrays.asList(new Interval(65, 424), new Interval(351, 507),
-                new Interval(314, 807), new Interval(387, 722), new Interval(19, 797), new Interval(259, 722),
-                new Interval(165, 221), new Interval(136, 897))));
+        assertEquals(7, minMeetingRooms1(Arrays.asList(new Interval(65, 424), new Interval(351, 507), new Interval(314, 807), new Interval(387, 722), new Interval(19, 797), new Interval(259, 722), new Interval(165, 221), new Interval(136, 897))));
     }
 
     public int minMeetingRooms1(List<Interval> intervals) {
@@ -1404,19 +1333,16 @@ public class LeetCode {
 
         Iterator<Character> iterator = adjacent.keySet().iterator();
         while (iterator.hasNext()) {
-            if (dfsAlienOrder(iterator.next(), visit, adjacent, result))
-                return "";
+            if (dfsAlienOrder(iterator.next(), visit, adjacent, result)) return "";
         }
         return result.reverse().toString();
     }
 
     public boolean dfsAlienOrder(Character c, HashMap<Character, Boolean> visit, HashMap<Character, HashSet<Character>> adjacent, StringBuilder res) {
-        if (visit.get(c) != null)
-            return visit.get(c);
+        if (visit.get(c) != null) return visit.get(c);
         visit.put(c, true);
         for (Character curChar : adjacent.get(c)) {
-            if (dfsAlienOrder(curChar, visit, adjacent, res))
-                return true;
+            if (dfsAlienOrder(curChar, visit, adjacent, res)) return true;
         }
         visit.put(c, false);
         res.append(c);
@@ -1451,8 +1377,7 @@ public class LeetCode {
 
     public ListNode reverseList(ListNode head) {
         ListNode result = new ListNode();
-        if (head == null)
-            return null;
+        if (head == null) return null;
 //        System.out.println(dfsReverseList(head, result));
         System.out.println(dfsReverseList1(head));
         System.out.println(result);
@@ -1471,8 +1396,7 @@ public class LeetCode {
 
 
     public ListNode dfsReverseList1(ListNode node) {
-        if (node == null)
-            return null;
+        if (node == null) return null;
         ListNode newHead = node;
         if (node.next != null) {
             newHead = dfsReverseList1(node.next);
@@ -1513,8 +1437,7 @@ public class LeetCode {
     public boolean hasCycle(ListNode head) {
         Set<ListNode> data = new HashSet<>();
         while (head != null) {
-            if (!data.add(head))
-                return true;
+            if (!data.add(head)) return true;
             head = head.next;
         }
         return false;
@@ -1526,8 +1449,7 @@ public class LeetCode {
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if (slow == fast)
-                return true;
+            if (slow == fast) return true;
         }
         return false;
     }
@@ -1536,9 +1458,7 @@ public class LeetCode {
     public void testMergeTwoLists() {
         ListNode node1 = new ListNode(1, new ListNode(2, new ListNode(4)));
         ListNode node2 = new ListNode(1, new ListNode(3, new ListNode(4)));
-        assertEquals(
-                new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(4)))))),
-                mergeTwoLists(node1, node2));
+        assertEquals(new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(4)))))), mergeTwoLists(node1, node2));
     }
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
@@ -1569,8 +1489,7 @@ public class LeetCode {
         ListNode node1 = new ListNode(1, new ListNode(2, new ListNode(4)));
         ListNode node2 = new ListNode(1, new ListNode(3, new ListNode(4)));
         ListNode node3 = new ListNode(5, new ListNode(6, new ListNode(7)));
-        assertEquals(new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(4, new ListNode(5, new ListNode(6, new ListNode(7))))))))),
-                mergeKLists1(new ListNode[]{node1, node2, node3}));
+        assertEquals(new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(4, new ListNode(5, new ListNode(6, new ListNode(7))))))))), mergeKLists1(new ListNode[]{node1, node2, node3}));
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
@@ -1603,8 +1522,7 @@ public class LeetCode {
 
     @Test
     public void testRemoveNthFromEnd() {
-        assertEquals(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5)))),
-                removeNthFromEnd2(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))), 2));
+        assertEquals(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(5)))), removeNthFromEnd2(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))), 2));
     }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
@@ -1614,8 +1532,7 @@ public class LeetCode {
             lists.add(cur);
             cur = cur.next;
         }
-        if (lists.size() == 0)
-            return head;
+        if (lists.size() == 0) return head;
         if ((lists.size() - n - 1) < 0) {
             return head.next;
         }
@@ -1630,8 +1547,7 @@ public class LeetCode {
         for (int i = 0; i < n; i++) {
             right = right.next;
         }
-        if (right == null)
-            return head.next;
+        if (right == null) return head.next;
         while (right.next != null) {
             left = left.next;
             right = right.next;
@@ -1757,17 +1673,14 @@ public class LeetCode {
             for (int j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] == 0) {
                     matrix[i][0] = 0;
-                    if (j != 0)
-                        matrix[0][j] = 0;
+                    if (j != 0) matrix[0][j] = 0;
                 }
             }
         }
         for (int i = 1; i < matrix.length; i++) {
             for (int j = 1; j < matrix[i].length; j++) {
-                if (matrix[i][0] == 0)
-                    clearRow(matrix, i);
-                if (matrix[0][j] == 0)
-                    clearColumn(matrix, j);
+                if (matrix[i][0] == 0) clearRow(matrix, i);
+                if (matrix[0][j] == 0) clearColumn(matrix, j);
             }
         }
         if (matrix[0][0] == 0) {
@@ -1807,29 +1720,24 @@ public class LeetCode {
                 if (matrix[i][j] == 0) {
                     matrix[i][0] = 0;
                     // 这里看当前列是不是0，如果是0标记一下，不能把往数组里赋值，因为这个位置已经给行用了
-                    if (j != 0)
-                        matrix[0][j] = 0;
-                    else
-                        zeroRow = true;
+                    if (j != 0) matrix[0][j] = 0;
+                    else zeroRow = true;
                 }
             }
         }
         // 先不看0行，0列
         for (int i = 1; i < matrix.length; i++) {
             for (int j = 1; j < matrix[i].length; j++) {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0)
-                    matrix[i][j] = 0;
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
             }
         }
         // 判断0行是否需要为0
-        if (matrix[0][0] == 0)
-            for (int i = 0; i < cols; i++)
-                matrix[0][i] = 0;
+        if (matrix[0][0] == 0) for (int i = 0; i < cols; i++)
+            matrix[0][i] = 0;
 
         // 判断0列是否需要为0
-        if (zeroRow)
-            for (int i = 0; i < rows; i++)
-                matrix[i][0] = 0;
+        if (zeroRow) for (int i = 0; i < rows; i++)
+            matrix[i][0] = 0;
     }
 
     @Test
@@ -1854,8 +1762,7 @@ public class LeetCode {
         curCol = curRow = 0;
 
         while (true) {
-            if (bottomBound == topBound || rightBound == leftBound)
-                break;
+            if (bottomBound == topBound || rightBound == leftBound) break;
 
             // -> right
             if (direction == 0) {
@@ -1949,8 +1856,7 @@ public class LeetCode {
              *  2,
              *  3}
              */
-            if (!(left < right && top < bottom))
-                break;
+            if (!(left < right && top < bottom)) break;
 
             // <-
             for (int i = right - 1; i >= left; i--)
@@ -2005,8 +1911,7 @@ public class LeetCode {
         HashSet<List<Integer>> path = new HashSet<>();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (dfsExist(i, j, board, word, 0, path))
-                    return true;
+                if (dfsExist(i, j, board, word, 0, path)) return true;
             }
         }
         return false;
@@ -2017,17 +1922,11 @@ public class LeetCode {
             return true;
         }
 
-        if (row == -1 || column == -1 || row == data.length || column == data[0].length
-                || data[row][column] != val.toCharArray()[index]
-                || path.contains(Arrays.asList(row, column)))
+        if (row == -1 || column == -1 || row == data.length || column == data[0].length || data[row][column] != val.toCharArray()[index] || path.contains(Arrays.asList(row, column)))
             return false;
 
         path.add(Arrays.asList(row, column));
-        boolean res = (dfsExist(row + 1, column, data, val, index + 1, path) ||
-                dfsExist(row - 1, column, data, val, index + 1, path) ||
-                dfsExist(row, column + 1, data, val, index + 1, path) ||
-                dfsExist(row, column - 1, data, val, index + 1, path)
-        );
+        boolean res = (dfsExist(row + 1, column, data, val, index + 1, path) || dfsExist(row - 1, column, data, val, index + 1, path) || dfsExist(row, column + 1, data, val, index + 1, path) || dfsExist(row, column - 1, data, val, index + 1, path));
         path.remove(Arrays.asList(row, column));
         return res;
     }
@@ -2107,8 +2006,7 @@ public class LeetCode {
 
     @Test
     public void testMinWindow() {
-        assertEquals("BANC", minWindow("ADOBECODEBANC",
-                "ABC"));
+        assertEquals("BANC", minWindow("ADOBECODEBANC", "ABC"));
     }
 
 
@@ -2133,20 +2031,17 @@ public class LeetCode {
             if (expect.containsKey(data[right])) {
                 cur.put(data[right], cur.getOrDefault(data[right], 0) + 1);
                 // 千万不要用 == 来判断 Integer 类型是否相同，只能判断到128，后面到就不行了，equal equal equal
-                if (expect.get(data[right]).equals(cur.get(data[right])))
-                    conditionCount++;
+                if (expect.get(data[right]).equals(cur.get(data[right]))) conditionCount++;
             }
 
             while (expectCount == conditionCount) {
-                if (result.equals(""))
-                    result = curResult.toString();
+                if (result.equals("")) result = curResult.toString();
                 else
                     result = (result.length() < curResult.length()) ? result : curResult.toString();
 
                 if (cur.containsKey(data[left])) {
                     cur.put(data[left], cur.get(data[left]) - 1);
-                    if (expect.get(data[left]) > cur.get(data[left]))
-                        conditionCount--;
+                    if (expect.get(data[left]) > cur.get(data[left])) conditionCount--;
                 }
                 left++;
                 curResult.deleteCharAt(0);
@@ -2241,14 +2136,11 @@ public class LeetCode {
         Stack<Character> stack = new Stack<>();
 
         for (char val : data) {
-            if (stack.isEmpty())
-                stack.push(val);
+            if (stack.isEmpty()) stack.push(val);
             else {
                 Character top = stack.peek();
-                if (top - val == -2 || top - val == -1)
-                    stack.pop();
-                else
-                    stack.push(val);
+                if (top - val == -2 || top - val == -1) stack.pop();
+                else stack.push(val);
             }
 
         }
@@ -2267,12 +2159,9 @@ public class LeetCode {
 
         for (char val : data) {
             if (dict.containsKey(val)) {
-                if (stack.isEmpty())
-                    return false;
-                if (!(dict.get(val) == stack.pop()))
-                    return false;
-            } else
-                stack.push(val);
+                if (stack.isEmpty()) return false;
+                if (!(dict.get(val) == stack.pop())) return false;
+            } else stack.push(val);
         }
         return stack.isEmpty();
     }
@@ -2325,11 +2214,9 @@ public class LeetCode {
 
         while (left <= right) {
 
-            while (!isAlphaDigit(data[left]))
-                left++;
+            while (!isAlphaDigit(data[left])) left++;
 
-            while (!isAlphaDigit(data[right]))
-                right--;
+            while (!isAlphaDigit(data[right])) right--;
 
             if (Character.toLowerCase(data[left]) != Character.toLowerCase(data[right]))
                 return false;
@@ -2367,8 +2254,7 @@ public class LeetCode {
 
                     left--;
                     right++;
-                } else
-                    break;
+                } else break;
             }
 
             left = right = i;
@@ -2382,8 +2268,7 @@ public class LeetCode {
                     }
                     left--;
                     right++;
-                } else
-                    break;
+                } else break;
             }
         }
         return result;
@@ -2505,6 +2390,7 @@ public class LeetCode {
         return result;
     }
 
+    @EqualsAndHashCode(of = {"val"})
     public class TreeNode {
         int val;
         TreeNode left;
@@ -2539,8 +2425,7 @@ public class LeetCode {
     }
 
     public int dfsMaxDepth(TreeNode node, int depth) {
-        if (node == null)
-            return depth;
+        if (node == null) return depth;
 
         int leftMax = dfsMaxDepth(node.left, depth + 1);
         int rightMax = dfsMaxDepth(node.right, depth + 1);
@@ -2550,8 +2435,7 @@ public class LeetCode {
 
     // recursive solution
     public int maxDepth1(TreeNode root) {
-        if (root == null)
-            return 0;
+        if (root == null) return 0;
         return 1 + Math.max(maxDepth1(root.left), maxDepth1(root.right));
     }
 
@@ -2565,10 +2449,8 @@ public class LeetCode {
             int size = data.size();
             for (int i = 0; i < size; i++) {
                 TreeNode parent = data.poll();
-                if (parent.left != null)
-                    data.add(parent.left);
-                if (parent.right != null)
-                    data.add(parent.right);
+                if (parent.left != null) data.add(parent.left);
+                if (parent.right != null) data.add(parent.right);
             }
             result++;
         }
@@ -2598,6 +2480,34 @@ public class LeetCode {
         }
         return result;
     }
+
+    @Test
+    public void testIsSameTree() {
+        TreeNode first = new TreeNode(1, null, new TreeNode(3));
+        TreeNode second = new TreeNode(1, null, new TreeNode(3));
+
+        assertEquals(true, isSameTree(first, second));
+    }
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        //  上面判断两个都为null的情况已经返回了，所以下面只有有一个为null，另一个肯定不是null
+        if (p == null || q == null) return false;
+
+        if (p.val == q.val) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+        return false;
+    }
+
+    public boolean isSameTree1(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        //  上面判断两个都为null的情况已经返回了，所以下面只有有一个为null，另一个肯定不是null
+        if ((p == null || q == null) || (p.val != q.val)) return false;
+
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
 
 }
 
