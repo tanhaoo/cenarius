@@ -2508,6 +2508,36 @@ public class LeetCode {
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
+    @Test
+    public void testInvertTree() {
+        assertEquals(new TreeNode(2, new TreeNode(1), new TreeNode(3)), invertTree(new TreeNode(2, new TreeNode(3), new TreeNode(1))));
+    }
+
+    public TreeNode invertTree(TreeNode root) {
+        dfsInvertTree(root);
+        return root;
+    }
+
+    public void dfsInvertTree(TreeNode root) {
+        if (root == null) return;
+        dfsInvertTree(root.left);
+        dfsInvertTree(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+
+    public TreeNode invertTree1(TreeNode root) {
+        if (root == null) return null;
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree1(root.left);
+        invertTree1(root.right);
+        return root;
+    }
+
 
 }
 
