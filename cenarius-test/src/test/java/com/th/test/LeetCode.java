@@ -2538,6 +2538,28 @@ public class LeetCode {
         return root;
     }
 
+    @Test
+    public void testMaxPathSum() {
+        assertEquals(6, maxPathSum(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
+    }
 
+    int maxPathSumResult;
+
+    public int maxPathSum(TreeNode root) {
+        maxPathSumResult = root.val;
+        dfsMaxPathSum(root);
+        return maxPathSumResult;
+    }
+
+    public int dfsMaxPathSum(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int leftMax = Math.max(dfsMaxPathSum(root.left), 0);
+        int rightMax = Math.max(dfsMaxPathSum(root.right), 0);
+
+        maxPathSumResult = Math.max(maxPathSumResult, root.val + leftMax + rightMax);
+        return root.val + Math.max(leftMax, rightMax);
+    }
 }
 
