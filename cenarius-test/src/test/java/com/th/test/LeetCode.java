@@ -2597,6 +2597,74 @@ public class LeetCode {
         return result;
     }
 
+    @Test
+    public void testSerializeAndDeserialize() {
+        String str = "1 2 3 N N 4 5 N N N N";
+        TreeNode root = new TreeNode(1, new TreeNode(2), new TreeNode(3, new TreeNode(4), new TreeNode(5)));
+//
+//        assertEquals(str, serialize(root));
+//        assertEquals(root, deserialize(str));
+        // use pre-order traversal
+//        TreeNode result = deserialize(serialize(root));
+        TreeNode result = deserialize(serialize1(root));
+        assertEquals(root, result);
+    }
+
+    int deserializeIndex = 0;
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null)
+            return "N";
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        List<String> result = new ArrayList<>();
+
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            if (cur == null)
+                result.add("N");
+            else {
+                result.add(String.valueOf(cur.val));
+                stack.add(cur.right);
+                stack.add(cur.left);
+            }
+        }
+        return String.join(" ", result);
+    }
+
+    public String serialize1(TreeNode root) {
+        List<String> result = new ArrayList<>();
+        dfsSerialize(root, result);
+        return String.join(" ", result);
+    }
+
+    public void dfsSerialize(TreeNode node, List<String> result) {
+        if (node == null) {
+            result.add("N");
+            return;
+        }
+        result.add(String.valueOf(node.val));
+        dfsSerialize(node.left, result);
+        dfsSerialize(node.right, result);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String[] dict = data.split(" ");
+        return dfsDeserialize(dict);
+    }
+
+    public TreeNode dfsDeserialize(String[] dict) {
+        if (dict[deserializeIndex].equals("N")) {
+            deserializeIndex++;
+            return null;
+        }
+        TreeNode temp = new TreeNode(Integer.parseInt(dict[deserializeIndex++]));
+        temp.left = dfsDeserialize(dict);
+        temp.right = dfsDeserialize(dict);
+        return temp;
+    }
 
 }
 
