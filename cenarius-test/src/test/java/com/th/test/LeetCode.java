@@ -2561,5 +2561,42 @@ public class LeetCode {
         maxPathSumResult = Math.max(maxPathSumResult, root.val + leftMax + rightMax);
         return root.val + Math.max(leftMax, rightMax);
     }
+
+    @Test
+    public void testLevelOrder() {
+        ArrayList<List<Integer>> expect = new ArrayList<>();
+        expect.add(new ArrayList<>(Arrays.asList(3)));
+        expect.add(new ArrayList<>(Arrays.asList(9, 20)));
+        expect.add(new ArrayList<>(Arrays.asList(15, 7)));
+        TreeNode node = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+        assertEquals(expect, levelOrder(node));
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        ArrayList<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root == null)
+            return result;
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            ArrayList<Integer> res = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode temp = queue.poll();
+                res.add(temp.val);
+
+                if (temp.left != null)
+                    queue.add(temp.left);
+                if (temp.right != null)
+                    queue.add(temp.right);
+            }
+            result.add(res);
+        }
+        return result;
+    }
+
+
 }
 
