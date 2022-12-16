@@ -2505,7 +2505,7 @@ public class LeetCode {
         //  上面判断两个都为null的情况已经返回了，所以下面只有有一个为null，另一个肯定不是null
         if ((p == null || q == null) || (p.val != q.val)) return false;
 
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        return isSameTree1(p.left, q.left) && isSameTree1(p.right, q.right);
     }
 
     @Test
@@ -2664,6 +2664,50 @@ public class LeetCode {
         temp.left = dfsDeserialize(dict);
         temp.right = dfsDeserialize(dict);
         return temp;
+    }
+
+    @Test
+    public void testIsSubtree() {
+        TreeNode root = new TreeNode(3, new TreeNode(4, new TreeNode(1), new TreeNode(2, new TreeNode(0), null)), new TreeNode(5));
+        TreeNode subRoot = new TreeNode(4, new TreeNode(1), new TreeNode(2));
+
+        assertEquals(false, isSubtree1(root, subRoot));
+    }
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.poll();
+                if (dfsIsSubtree(cur, subRoot))
+                    return true;
+                if (cur.left != null)
+                    queue.add(cur.left);
+                if (cur.right != null)
+                    queue.add(cur.right);
+            }
+        }
+        return false;
+    }
+
+    public boolean isSubtree1(TreeNode root, TreeNode subRoot) {
+        if (subRoot == null)
+            return true;
+        if (root == null)
+            return false;
+        if (dfsIsSubtree(root, subRoot))
+            return true;
+        return isSubtree1(root.left, subRoot) || isSubtree1(root.right, subRoot);
+    }
+
+    public boolean dfsIsSubtree(TreeNode root, TreeNode sub) {
+        if (root == null && sub == null)
+            return true;
+        if ((root == null || sub == null) || root.val != sub.val)
+            return false;
+        return dfsIsSubtree(root.left, sub.left) && dfsIsSubtree(root.right, sub.right);
     }
 
 }
