@@ -612,7 +612,7 @@ public class LeetCode {
 
         String test = "abcd";
 
-        assertEquals(true, wordBreak(test, new ArrayList<>(Arrays.asList("a", "abc", "b", "cd"))));
+        assertEquals(true, wordBreak(test, new ArrayList<>(Arrays.asList("abc", "a", "b", "cd"))));
 
     }
 
@@ -2759,6 +2759,26 @@ public class LeetCode {
         return rootNode;
     }
 
+
+    @Test
+    public void testIsValidBST() {
+        TreeNode data = new TreeNode(2, new TreeNode(1), new TreeNode(3));
+        assertEquals(true, isValidBST(data));
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        // 这边有个边界值的测试Case，如果right用Integer.MAX，就过不了，因为就会出现 root.val == right 情况
+        return dfsIsValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean dfsIsValidBST(TreeNode root, long left, long right) {
+        if (root == null)
+            return true;
+        if (!(root.val > left && root.val < right))
+            return false;
+
+        return dfsIsValidBST(root.left, left, root.val) && dfsIsValidBST(root.right, root.val, right);
+    }
 
 }
 
