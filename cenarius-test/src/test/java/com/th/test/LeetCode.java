@@ -2710,5 +2710,55 @@ public class LeetCode {
         return dfsIsSubtree(root.left, sub.left) && dfsIsSubtree(root.right, sub.right);
     }
 
+
+    @Test
+    public void testBuildTree() {
+        TreeNode result = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+        int[] preOrder = {3, 9, 20, 15, 7};
+        int[] inorder = {9, 3, 15, 20, 7};
+        assertEquals(result, buildTree(preOrder, inorder));
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length == 0)
+            return null;
+        int root = preorder[0], pos = 0;
+        // 先序遍历的第一个节点永远是头节点
+        TreeNode rootNode = new TreeNode(root);
+        // 找到该节点在中序遍历中的位置，那么在此之前的所有节点都应在其左子树下，在此之后的所有节点都应在右子树下
+        for (int i : inorder) {
+            pos++;
+            if (i == root)
+                break;
+        }
+        int[] rightPreorder = new int[preorder.length - pos];
+        int[] rightInorder = new int[preorder.length - pos];
+        int[] leftPreorder = new int[pos - 1];
+        int[] leftInorder = new int[pos - 1];
+
+        /**
+         * preorder: 3 9 20 15 7
+         * inorder:  9 3 15 20 7
+         *
+         * root = 9
+         * 在inorder中第二个位置，pos=2
+         * left长度即为2-1=1
+         * right长度即为5-2=3
+         */
+        for (int i = 0; i < leftPreorder.length; i++) {
+            leftPreorder[i] = preorder[i + 1];
+            leftInorder[i] = inorder[i];
+        }
+        for (int i = 0; i < rightPreorder.length; i++) {
+            rightPreorder[i] = preorder[pos + i];
+            rightInorder[i] = inorder[pos + i];
+        }
+        rootNode.left = buildTree(leftPreorder, leftInorder);
+        rootNode.right = buildTree(rightPreorder, rightInorder);
+
+        return rootNode;
+    }
+
+
 }
 
