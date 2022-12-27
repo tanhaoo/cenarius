@@ -2819,5 +2819,25 @@ public class LeetCode {
         return 0;
     }
 
+    @Test
+    public void testLowestCommonAncestor() {
+        TreeNode data = new TreeNode(2, new TreeNode(1), null);
+        TreeNode expect = new TreeNode(2);
+        assertEquals(expect, lowestCommonAncestor(data, new TreeNode(2), new TreeNode(1)));
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // 如果两个点都比当前子树小，那就去左边找，反之，就去右边找
+        if (root.val > p.val && root.val > q.val)
+            return lowestCommonAncestor(root.left, p, q);
+
+        if (root.val < p.val && root.val < q.val)
+            return lowestCommonAncestor(root.right, p, q);
+
+        // 如果一个点在当前子树的左边，一个在当前子树右边，那么当前子树就一定是他们的父子树
+        // 如果当前子树和某一个点相同，那另一个点无论是在该子树左边还是右边，当前子树都可以做他们两的父子树
+        return new TreeNode(root.val);
+    }
+
 }
 
