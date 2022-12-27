@@ -2780,5 +2780,44 @@ public class LeetCode {
         return dfsIsValidBST(root.left, left, root.val) && dfsIsValidBST(root.right, root.val, right);
     }
 
+    @Test
+    public void testKthSmallest() {
+        TreeNode data = new TreeNode(3, new TreeNode(1, null, new TreeNode(2)), new TreeNode(4));
+        assertEquals(1, kthSmallest1(data, 1));
+    }
+
+    public int kthSmallest(TreeNode root, Integer k) {
+        ArrayList<Integer> result = new ArrayList<>();
+        dfsKthSmallest(root, result);
+        return result.get(k - 1);
+    }
+
+    public void dfsKthSmallest(TreeNode root, List<Integer> data) {
+        if (root == null)
+            return;
+        dfsKthSmallest(root.left, data);
+        data.add(root.val);
+        dfsKthSmallest(root.right, data);
+    }
+
+    public int kthSmallest1(TreeNode root, Integer k) {
+        Stack<TreeNode> data = new Stack<>();
+        TreeNode cur = root;
+        int count = 0;
+        // in order iterator  left -> mid -> right
+        while (!(data.isEmpty()) || (cur != null)) {
+            while (cur != null) {
+                data.push(cur);
+                cur = cur.left;
+            }
+            cur = data.pop();
+            count++;
+            if (count == k)
+                return cur.val;
+            cur = cur.right;
+        }
+        return 0;
+    }
+
 }
 
