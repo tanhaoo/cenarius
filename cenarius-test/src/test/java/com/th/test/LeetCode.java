@@ -2984,5 +2984,76 @@ public class LeetCode {
         assertTrue(wordDictionary.search("b.."));// return True
     }
 
+    @Test
+    public void testFindWords() {
+        char[][] data = new char[][]{{'a'}};
+        String[] words = new String[]{"a"};
+        assertEquals(new ArrayList<>(Arrays.asList("a")), findWords(data, words));
+    }
+
+    public List<String> findWords(char[][] board, String[] words) {
+
+        TrieNode root = new TrieNode();
+        // 不要用这个数据结构来记录已经走过的路径，中看不中用，会time limit exceeded，搞死
+        HashSet<List<Integer>> path = new HashSet<>();
+        // 就用最朴实无华的矩阵
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        ArrayList<String> result = new ArrayList<>();
+
+        buildTrieNode(root, words);
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                dfsFindWords(i, j, board, root, visited, result, "");
+            }
+        }
+
+        return result;
+    }
+
+    public void buildTrieNode(TrieNode root, String[] words) {
+        for (String word : words) {
+            TrieNode curNode = root;
+            for (char c : word.toCharArray()) {
+                if (!curNode.child.containsKey(c))
+                    curNode.child.put(c, new TrieNode());
+                curNode = curNode.child.get(c);
+            }
+            curNode.endOfWords = true;
+        }
+    }
+
+    private void dfsFindWords(int row, int column, char[][] board, TrieNode curNode, boolean[][] visited, List<String> result, String curStr) {
+
+        // 判断边界以及是否重复走过
+        if (row == -1 || column == -1 ||
+                row == board.length || column == board[row].length
+                || visited[row][column])
+            return;
+
+        char curChar = board[row][column];
+        // 判断当前字符是否存在于前缀树中，不存在直接返回
+        if (!curNode.child.containsKey(curChar))
+            return;
+
+        visited[row][column] = true;
+
+        // 通过了上面的判断，这边一定可以拿到这个字符节点，把该值加在当前String的后面，如果他有EOW标记,就直接添加结果了
+        curNode = curNode.child.get(curChar);
+        curStr += curChar;
+        if (curNode.endOfWords) {
+            result.add(curStr);
+            // 为了避免重复添加，加完以后取消标识，或者用个HashSet来存，不过怕time limit exceeded
+            curNode.endOfWords = false;
+        }
+
+        dfsFindWords(row + 1, column, board, curNode, visited, result, curStr);
+        dfsFindWords(row - 1, column, board, curNode, visited, result, curStr);
+        dfsFindWords(row, column + 1, board, curNode, visited, result, curStr);
+        dfsFindWords(row, column - 1, board, curNode, visited, result, curStr);
+
+        visited[row][column] = false;
+    }
+
 }
 
