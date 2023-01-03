@@ -2839,5 +2839,72 @@ public class LeetCode {
         return new TreeNode(root.val);
     }
 
+    class Trie {
+
+        class TrieNode {
+            HashMap<Character, TrieNode> child = new HashMap<>();
+            boolean endOfWords = false;
+        }
+
+        TrieNode root;
+
+        public Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode curNode = root;
+            for (char c : word.toCharArray()) {
+                if (!curNode.child.containsKey(c))
+                    curNode.child.put(c, new TrieNode());
+                curNode = curNode.child.get(c);
+            }
+            curNode.endOfWords = true;
+        }
+
+        public boolean search(String word) {
+            TrieNode curNode = root;
+            for (char c : word.toCharArray()) {
+                if (!curNode.child.containsKey(c))
+                    return false;
+                curNode = curNode.child.get(c);
+            }
+            return curNode.endOfWords;
+        }
+
+        public boolean startsWith(String prefix) {
+            TrieNode curNode = root;
+            for (char c : prefix.toCharArray()) {
+                if (!curNode.child.containsKey(c))
+                    return false;
+                curNode = curNode.child.get(c);
+            }
+            return true;
+        }
+    }
+
+    @Test
+    public void testTrie() {
+        /**
+         *       a -> ['a',new TrieNode().child->{                              b       c
+         *                                          ['p',new Node()],
+         *                                          ['b',new Node()],
+         *                                          ['c',new Node()],
+         *                                        }]
+         *    [p b c]
+         *
+         *    TrieNode child用来存放子节点，endOf用来标记当前字符是否为最后一位
+         */
+        Trie trie = new Trie();
+        trie.insert("apple");
+        trie.insert("ab");
+        trie.insert("ac");
+        assertTrue(trie.search("apple"));   // return True
+        assertFalse(trie.search("app"));     // return False
+        assertTrue(trie.startsWith("app")); // return True
+        trie.insert("app");
+        assertTrue(trie.search("app"));
+    }
+
 }
 
