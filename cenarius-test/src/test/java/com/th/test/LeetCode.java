@@ -2671,7 +2671,7 @@ public class LeetCode {
         TreeNode root = new TreeNode(3, new TreeNode(4, new TreeNode(1), new TreeNode(2, new TreeNode(0), null)), new TreeNode(5));
         TreeNode subRoot = new TreeNode(4, new TreeNode(1), new TreeNode(2));
 
-        assertEquals(false, isSubtree1(root, subRoot));
+        assertFalse(isSubtree1(root, subRoot));
     }
 
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -2763,7 +2763,7 @@ public class LeetCode {
     @Test
     public void testIsValidBST() {
         TreeNode data = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-        assertEquals(true, isValidBST(data));
+        assertTrue(isValidBST(data));
     }
 
     public boolean isValidBST(TreeNode root) {
@@ -2839,13 +2839,12 @@ public class LeetCode {
         return new TreeNode(root.val);
     }
 
+    class TrieNode {
+        HashMap<Character, TrieNode> child = new HashMap<>();
+        boolean endOfWords = false;
+    }
+
     class Trie {
-
-        class TrieNode {
-            HashMap<Character, TrieNode> child = new HashMap<>();
-            boolean endOfWords = false;
-        }
-
         TrieNode root;
 
         public Trie() {
@@ -2904,6 +2903,85 @@ public class LeetCode {
         assertTrue(trie.startsWith("app")); // return True
         trie.insert("app");
         assertTrue(trie.search("app"));
+    }
+
+    class WordDictionary {
+
+        TrieNode root;
+
+        public WordDictionary() {
+            root = new TrieNode();
+        }
+
+        public void addWord(String word) {
+            TrieNode curNode = root;
+            for (char c : word.toCharArray()) {
+                if (!curNode.child.containsKey(c))
+                    curNode.child.put(c, new TrieNode());
+                curNode = curNode.child.get(c);
+            }
+            curNode.endOfWords = true;
+        }
+
+        public boolean search(String word) {
+            return search(word, null);
+        }
+
+        public boolean search(String word, TrieNode curNode) {
+            if (curNode == null)
+                curNode = root;
+            char[] data = word.toCharArray();
+            for (int i = 0; i < data.length; i++) {
+                if (data[i] == '.') {
+                    for (TrieNode value : curNode.child.values()) {
+                        if (search(word.substring(i + 1), value))
+                            return true;
+                    }
+                    // 一开始的想法是，即然 data[i]== '.' 然后上面都走完了，那用 if (!curNode.child.containsKey(data[i])) 来触发 return false就行了，不用专门写这一行
+                    // 但是如果测试数据量很大，会time limit exceeded，但就算写了，也会超时，只能说不写一定会超时，写了不一定会超时，看leetcode心情，垃圾Java，Python这写法秒AC
+                    return false;
+                }
+                if (!curNode.child.containsKey(data[i]))
+                    return false;
+                curNode = curNode.child.get(data[i]);
+            }
+            return curNode.endOfWords;
+        }
+
+        // 这边就不用subString来切了，传index来遍历直接取, 这种方案更好！！！！！！！
+        public boolean search2(String word) {
+            return dfsSearch(word.toCharArray(), 0, root);
+        }
+
+        public boolean dfsSearch(char[] data, int index, TrieNode curNode) {
+            for (; index < data.length; index++) {
+                // special case, including dot
+                if (data[index] == '.') {
+                    for (TrieNode value : curNode.child.values()) {
+                        if (dfsSearch(data, index + 1, value))
+                            return true;
+                    }
+                    return false;
+                }
+                // normal case
+                if (!curNode.child.containsKey(data[index]))
+                    return false;
+                curNode = curNode.child.get(data[index]);
+            }
+            return curNode.endOfWords;
+        }
+    }
+
+    @Test
+    public void testWordDictionary() {
+        WordDictionary wordDictionary = new WordDictionary();
+        wordDictionary.addWord("bad");
+        wordDictionary.addWord("dad");
+        wordDictionary.addWord("mad");
+        assertFalse(wordDictionary.search("pad")); // return False
+        assertTrue(wordDictionary.search("bad")); // return True
+        assertTrue(wordDictionary.search(".ad")); // return True
+        assertTrue(wordDictionary.search("b.."));// return True
     }
 
 }
