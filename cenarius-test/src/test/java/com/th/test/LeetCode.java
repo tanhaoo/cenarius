@@ -3055,5 +3055,88 @@ public class LeetCode {
         visited[row][column] = false;
     }
 
+    @Test
+    public void testTopKFrequent() {
+        assertEquals(Arrays.toString(new int[]{2, 1}), Arrays.toString(topKFrequent1(new int[]{1, 1, 1, 2, 2, 3, 4}, 2)));
+    }
+
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> recordMap = new HashMap<>();
+
+        // 保证不要插入重复值
+        Set<Integer>[] resultArray = new HashSet[nums.length + 1];
+        int[] result = new int[k];
+        // O(n) 先用Map表来记录每一个值出现的次数
+        for (int cur : nums) {
+            recordMap.put(cur, recordMap.getOrDefault(cur, 0) + 1);
+        }
+        /**
+         * 最大长度就是8，因为nums长度为7，
+         *      0     1      2       3     4     5     6      7     出现频率
+         *          [3,4]   [2]     [1]                             值
+         */
+        // O(n) 在通过遍历每一个值，拿到它对应的value，也就是出现次数，把出现次数当作结果数组的下标，数组里存放的就是出现该次数值的Set集合
+        for (int cur : nums) {
+            if (resultArray[recordMap.get(cur)] == null)
+                resultArray[recordMap.get(cur)] = new HashSet<>(Arrays.asList(cur));
+            else
+                resultArray[recordMap.get(cur)].add(cur);
+        }
+        // O(n) 从最后一个元素，也就是频率最高位开始遍历，组装结果
+        for (int i = resultArray.length - 1; i >= 0; i--) {
+            if (resultArray[i] != null)
+                for (Integer val : resultArray[i]) {
+                    // leetcode 规定Java这边返回一定是数组，如果返回集合更简单
+                    // 反正可以任意顺序，所以就从最后一位往前赋值
+                    result[k - 1] = val;
+                    k--;
+                    // 到0时，下一次的下标就是-1，所以直接返回
+                    if (k == 0)
+                        return result;
+                }
+        }
+        return result;
+    }
+
+    public int[] topKFrequent1(int[] nums, int k) {
+        HashMap<Integer, Integer> recordMap = new HashMap<>();
+
+        List<Integer>[] resultArray = new ArrayList[nums.length + 1];
+        int[] result = new int[k];
+        // O(n) 先用Map表来记录每一个值出现的次数
+        for (int cur : nums) {
+            recordMap.put(cur, recordMap.getOrDefault(cur, 0) + 1);
+        }
+        /**
+         * 最大长度就是8，因为nums长度为7，
+         *      0     1      2       3     4     5     6      7     出现频率
+         *          [3,4]   [2]     [1]                             值
+         */
+        // O(n) 在通过遍历每一个值，拿到它对应的value，也就是出现次数，把出现次数当作结果数组的下标
+        // 和上面版本主要区别就是这边直接遍历recordMap，从而避免了插入重复值的可能，因为key肯定唯一
+        recordMap.forEach((val, freq) -> {
+            if (resultArray[freq] == null)
+                resultArray[freq] = new ArrayList<>(Arrays.asList(val));
+            else
+                resultArray[freq].add(val);
+
+        });
+
+        // O(n) 从最后一个元素，也就是频率最高位开始遍历，组装结果
+        for (int i = resultArray.length - 1; i >= 0; i--) {
+            if (resultArray[i] != null)
+                for (Integer val : resultArray[i]) {
+                    // leetcode 规定Java这边返回一定是数组，如果返回集合更简单
+                    // 反正可以任意顺序，所以就从最后一位往前赋值
+                    result[k - 1] = val;
+                    k--;
+                    // 到0时，下一次的下标就是-1，所以直接返回
+                    if (k == 0)
+                        return result;
+                }
+        }
+        return result;
+    }
+
 }
 
