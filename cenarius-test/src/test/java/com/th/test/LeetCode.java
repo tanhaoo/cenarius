@@ -3232,5 +3232,66 @@ public class LeetCode {
         assertEquals(2.0, medianFinder.findMedian()); // return 2.0
     }
 
+    @Test
+    public void tesIsAnagram() {
+        assertTrue(isAnagram1("anagram", "nagaram"));
+    }
+
+    // 时间复杂度最优
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+        char[] s1 = s.toCharArray();
+        char[] s2 = t.toCharArray();
+        Arrays.sort(s1);
+        Arrays.sort(s2);
+        return Arrays.toString(s1).equals(Arrays.toString(s2));
+    }
+
+    public boolean isAnagram1(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+        List<String> s1 = new ArrayList<>(Arrays.asList(s.split("")));
+        List<String> s2 = new ArrayList<>(Arrays.asList(t.split("")));
+        // O(n)
+        for (String value : s1) {
+            // O(n) 所以总的就是O(n^2) 三种里面时间复杂度最高
+            if (s2.contains(value))
+                s2.remove(value);
+            else
+                return false;
+        }
+        return s2.isEmpty();
+    }
+
+    // 时间复杂度中等
+    public boolean isAnagram2(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+        HashMap<Character, Integer> s1 = new HashMap<>();
+        HashMap<Character, Integer> s2 = new HashMap<>();
+        char[] char1 = s.toCharArray();
+        char[] char2 = t.toCharArray();
+
+        // O(n)
+        for (int i = 0; i < char1.length; i++) {
+            s1.put(char1[i], s1.getOrDefault(char1[i], 0) + 1);
+            s2.put(char2[i], s2.getOrDefault(char2[i], 0) + 1);
+        }
+
+        // 简单点，直接用hashmap的equals
+//        return s1.equals(s2);
+
+        // O(n)
+        for (Character key : s1.keySet()) {
+            // 一开始的写法 -> s1.get(key) != s2.getOrDefault(key, 0)
+            // 在基础类型int中，值一旦超过127，就不能用==来比较了，之前就遇到过，又忘了！！！！
+            if (!(s1.get(key).equals(s2.getOrDefault(key, 0))))
+                return false;
+        }
+
+        return true;
+    }
+
 }
 
