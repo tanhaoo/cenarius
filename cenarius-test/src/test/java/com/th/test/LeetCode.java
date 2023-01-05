@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -3136,6 +3137,99 @@ public class LeetCode {
                 }
         }
         return result;
+    }
+
+    class MedianFinder {
+
+        List<Integer> data;
+
+        public MedianFinder() {
+            data = new ArrayList<>();
+        }
+
+        public void addNum(int num) {
+            int left, right, mid, index;
+            index = 0;
+            left = 0;
+            right = data.size() - 1;
+            while (left <= right) {
+                mid = (left + right) / 2;
+                if (data.get(mid) > num) {
+                    right = mid - 1;
+                    index = mid;
+                } else {
+                    left = mid + 1;
+                    index = left;
+                }
+            }
+            data.add(Math.max(index, 0), num);
+        }
+
+        public double findMedian() {
+            int mid = data.size() / 2;
+            if (data.size() % 2 == 0) {
+                return (data.get(mid - 1) + data.get(mid)) / 2.0;
+            } else
+                return data.get(mid);
+        }
+    }
+
+    class MedianFinder1 {
+
+        // 大的小顶堆
+        Queue<Integer> largeMinHeap;
+        // 小的大顶堆
+        Queue<Integer> smallMaxHeap;
+
+        /**
+         * [1,2,3,4,5,6]
+         * largeMinHeap[4,5,6] peek -> 4
+         * smallMaxHeap[1,2,3] peek -> 3
+         * 这样就能直接取到中间值了
+         */
+
+        public MedianFinder1() {
+            // 默认小顶堆
+            largeMinHeap = new PriorityQueue<>();
+            // 自定义comparator 实现大顶堆
+            smallMaxHeap = new PriorityQueue<>((o1, o2) -> -o1.compareTo(o2));
+        }
+
+        // O (logN)
+        public void addNum(int num) {
+            // 如果大顶堆为空，那就直接加到小顶堆，如果有值且待插入值大，那他肯定属于小顶堆，因为小顶堆整体都要大于大顶堆
+            if (!smallMaxHeap.isEmpty() && smallMaxHeap.peek() < num)
+                largeMinHeap.add(num);
+            else
+                smallMaxHeap.add(num);
+
+            // 如果两个堆的数量差大于1，那就要互相调整数量，两个堆数量差最大为1
+            if (smallMaxHeap.size() > largeMinHeap.size() + 1)
+                largeMinHeap.add(smallMaxHeap.remove());
+            if (largeMinHeap.size() > smallMaxHeap.size() + 1)
+                smallMaxHeap.add(largeMinHeap.remove());
+        }
+
+        // O(1)
+        public double findMedian() {
+            if (largeMinHeap.size() == smallMaxHeap.size())
+                return (double) (largeMinHeap.peek() + smallMaxHeap.peek()) / 2;
+            if (largeMinHeap.size() > smallMaxHeap.size())
+                return largeMinHeap.peek();
+            return smallMaxHeap.peek();
+        }
+    }
+
+    @Test
+    public void testMedianFinder() {
+        MedianFinder1 medianFinder = new MedianFinder1();
+        medianFinder.addNum(1);    // arr = [1]
+        medianFinder.addNum(2);    // arr = [1, 2]
+        assertEquals(1.5, medianFinder.findMedian()); // return 1.5 (i.e., (1 + 2) / 2)
+        medianFinder.addNum(3);    // arr[1, 2, 3]
+        medianFinder.addNum(0);    // arr[1, 2, 3]
+        medianFinder.addNum(0);    // arr[1, 2, 3]
+        assertEquals(2.0, medianFinder.findMedian()); // return 2.0
     }
 
 }
