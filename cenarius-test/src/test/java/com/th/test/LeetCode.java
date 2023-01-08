@@ -3293,5 +3293,38 @@ public class LeetCode {
         return true;
     }
 
+    @Test
+    public void testGetSum() {
+        assertEquals(5, getSum(2, 3));
+    }
+
+    public int getSum(int a, int b) {
+        int tmp;
+        while (b != 0) {
+            tmp = a;
+            a = a ^ b;
+            b = (tmp & b) << 1;
+
+            /**
+             * tmp = (a & b) << 1;
+             * a = a ^ b;
+             * b = tmp;
+             */
+        }
+        /**
+         *  好像懂了，又好像没懂， << 1 是代表and完以后,如果有1，那这1要进位，所以就 << 1
+         *  当公示记下来就完事了，先xor，再and<<1,直到and<<1为0，代表没有进位了，输出结果
+         *    a        10
+         *    b        11
+         *           ------
+         *  xor    a  001
+         *  and<<1 b  100  这边b要拿上一个a，所以用tmp来存上一个a
+         *           ------
+         *  xor    a  101
+         *  and<<1 b  000
+         */
+
+        return a;
+    }
 }
 
