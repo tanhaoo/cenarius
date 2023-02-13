@@ -3,10 +3,11 @@ package com.th.test.pattern.strategy.config;
 import com.th.cenarius.web.common.strategy.StrategyFactory;
 import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
 import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
+import com.th.test.pattern.strategy.template.FormItemConverter;
+import com.th.test.pattern.strategy.template.FormItemTypeEnum;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 /**
  * @Author: Aaron
@@ -16,12 +17,17 @@ import org.springframework.stereotype.Component;
 public class StrategyFactoryConfig {
 
     @Bean
-    public StrategyFactory<String, PayCallbackStrategy> getPayCallbackFactory() {
+    public StrategyFactory<String, PayCallbackStrategy> payCallbackFactory() {
         return new StrategyFactory<>(PayCallbackStrategy.class);
     }
 
     @Bean
-    public StrategyFactory<String, PaymentTypeStrategy> getPaymentTypeFactory() {
+    public StrategyFactory<String, PaymentTypeStrategy> paymentTypeFactory() {
         return new StrategyFactory<>(PaymentTypeStrategy.class);
+    }
+
+    @Bean
+    public StrategyFactory<FormItemTypeEnum, FormItemConverter> formItemConverter() {
+        return new StrategyFactory<>(FormItemConverter.class);
     }
 }

@@ -29,6 +29,10 @@
         <slf4j.api.version>1.7.30</slf4j.api.version>
 
         <guava-version>31.1-jre</guava-version>
+        <rocketmq-version>2.2.2</rocketmq-version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok.version>1.18.16</lombok.version>
+        <fastjson.version>1.2.79</fastjson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -44,7 +48,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.79</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <dependency>
@@ -52,6 +56,7 @@
                 <artifactId>guava</artifactId>
                 <version>${guava-version}</version>
             </dependency>
+
         </dependencies>
 
     </dependencyManagement>
@@ -61,7 +66,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lombok.version}</version>
         </dependency>
 
         <!-- slf4j -->
@@ -81,6 +86,42 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
 
+        <!-- mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <annotationProcessorPaths>
+                        <!-- 要在mapstruct之前，注意顺序 -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <!-- 必须要加, 否则生成不了 MapperImpl 实现类 -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
