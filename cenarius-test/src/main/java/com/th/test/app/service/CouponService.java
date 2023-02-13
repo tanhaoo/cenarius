@@ -6,11 +6,10 @@ import com.th.test.pattern.pipeline.coupon.generate.CouponBuildContext;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 import javax.annotation.Resource;
 
@@ -50,6 +49,17 @@ public class CouponService {
 //        });
 
         log.info("{} arrive, data {}", batchCouponContext.getSimpleName(), batchCouponContext.getCouponCodes());
+        long startTime = System.currentTimeMillis();
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(2000);
+                log.info("Async task finished, duration: {}", System.currentTimeMillis() - startTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        log.info("Main task finished, duration: {}", System.currentTimeMillis() - startTime);
         return batchCouponContext.getCouponCodes();
     }
 

@@ -3326,5 +3326,71 @@ public class LeetCode {
 
         return a;
     }
+
+    @Test
+    public void test() {
+        int[] data = {-1, 0, 1, 2, -1, -4};
+        System.out.println("abcdef".substring(0, 2));
+        System.out.println(combine(4, 3));
+//        kthSmallest(new TreeNode(3, new TreeNode(1, null, new TreeNode(2)), new TreeNode(4)), 2);
+        TreeNode treeNode = deserialize1(serialize2(new TreeNode(3, new TreeNode(1), new TreeNode(2))));
+    }
+
+    String result = "";
+    Integer index = 0;
+
+    // Encodes a tree to a single string.
+    public String serialize2(TreeNode root) {
+        dfsSerialize(root, "");
+        return result;
+    }
+
+    public void dfsSerialize(TreeNode root, String test) {
+        if (root == null) {
+            result += "# ";
+            return;
+        }
+
+        result += root.val + " ";
+        test += root.val + " ";
+        dfsSerialize(root.left, test);
+        dfsSerialize(root.right, test);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize1(String data) {
+        return dfsDeserialize1(data.split(" "));
+    }
+
+    public TreeNode dfsDeserialize1(String[] val) {
+        if (val[index].equals("#")) {
+            index++;
+            return null;
+        }
+        TreeNode cur = new TreeNode();
+        cur.val = Integer.parseInt(String.valueOf(val[index++]));
+        cur.left = dfsDeserialize(val);
+        cur.right = dfsDeserialize(val);
+        return cur;
+    }
+
+    public List<List<Integer>> combine(int n, int k) {
+        ArrayList<List<Integer>> result = new ArrayList<>();
+
+        dfsCombine(n, k, new ArrayList<>(), result);
+        return result;
+    }
+
+    public void dfsCombine(int n, int k, List<Integer> temp, List<List<Integer>> res) {
+        if (k == 0) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (; n > 0; n--) {
+            temp.add(n);
+            dfsCombine(n - 1, k - 1, temp, res);
+            temp.remove(temp.size() - 1);
+        }
+    }
 }
 
