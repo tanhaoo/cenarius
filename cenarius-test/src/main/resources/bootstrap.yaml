@@ -1,0 +1,75 @@
+# ===============================================================
+# Spring Configuration
+# ===============================================================
+spring:
+  application:
+    name: cenarius-test-service
+#  main:
+#    allow-circular-references: true
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: ${spring.nacos.server-address:127.0.0.1}:${spring.nacos.port:8848}
+#        namespace: ${spring.nacos.namespace:public}
+#        group: ${spring.nacos.group:DEFAULT_GROUP}
+#        metadata:
+#          git.branch: '@git.branch@'
+#          git.commit.id: '@git.commit.id@'
+#          git.commit.id.abbrev: '@git.commit.id.abbrev@'
+#          git.commit.time: '@git.commit.time@'
+#          git.build.time: '@git.build.time@'
+#          git.build.version: '@git.build.version@'
+#          dependency.list: 'athena.version:@athena.version@,
+#                            inventory.domain.version:@inventory.domain.version@,
+#                            product.domain.version:@product.domain.version@,
+#                            masterdata.domain.version:@masterdata.domain.version@,
+#                            integration.client.version:@integration.client.version@,
+#                            connext.cloud.starter.bootstrap.version:@connext.cloud.starter.bootstrap.version@,
+#                            connext.platform.kernel.version:@connext.platform.kernel.version@,
+#                            exception.code.version:@exception.code.version@,
+#                            digitalasset.domain.version:@digitalasset.domain.version@,
+#                            oms.service.version:@oms.service.version@,
+#                            order.domain.version:@order.domain.version@,
+#                            task.domain.version:@task.domain.version@,
+#                            pay.sdk.version:@pay.sdk.version@,
+#                            payment.domain.version:@payment.domain.version@'
+#      config:
+#        server-addr: ${spring.nacos.server-address:127.0.0.1}:${spring.nacos.port:8848}
+#        namespace: ${spring.nacos.namespace:public}
+#        group: ${spring.nacos.group:DEFAULT_GROUP}
+#        file-extension: yaml
+#
+## ===============================================================
+## Configuration for Dubbo
+## ===============================================================
+#dubbo:
+#  scan:
+#    base-packages: com.henkel.ecommerce.mall
+#  application:
+#    name: dubbo-${spring.application.name}
+#  cloud:
+#    subscribed-services: dubbo-${spring.application.name}
+#  protocol:
+#    name: dubbo
+#    port: 20880
+#    thread-pool: cached
+#    core-threads: 200
+#  metadata-report:
+#    address: nacos://${spring.nacos.server-address:127.0.0.1}:${spring.nacos.port:8848}/
+#    parameters:
+#      namespace: ${spring.nacos.namespace:aaf8f106-9078-48dc-b8d6-f0098bf9e0f6}
+#    group: DUBBO_METADATA
+#  registry:
+#    address: nacos://${spring.nacos.server-address:127.0.0.1}:${spring.nacos.port:8848}/
+#    parameters:
+#      namespace: ${spring.nacos.namespace:aaf8f106-9078-48dc-b8d6-f0098bf9e0f6}
+#  config-center:
+#    address: nacos://${spring.nacos.server-address:127.0.0.1}:${spring.nacos.port:8848}/
+#    parameters:
+#      namespace: ${spring.nacos.namespace:aaf8f106-9078-48dc-b8d6-f0098bf9e0f6}
+#  provider:
+#    timeout: 60000
+#  consumer:
+#    timeout: 60000
+#    check: false
+#    retries: 3

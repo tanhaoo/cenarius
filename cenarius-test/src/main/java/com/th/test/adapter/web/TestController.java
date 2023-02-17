@@ -5,6 +5,7 @@ import com.th.cenarius.web.annotation.InvokeRecordAnno;
 import com.th.test.app.service.CouponService;
 import com.th.test.app.service.OrderService;
 import com.th.test.domain.Order;
+import com.th.test.message.MessageProducer;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -61,6 +62,16 @@ public class TestController {
     public List<String> couponCodes() {
 
         return couponService.getCouponCodes();
+    }
+
+    @Resource
+    private MessageProducer producer;
+
+    @GetMapping(value = "txMsg")
+    @ResponseStatus(HttpStatus.OK)
+    public void testTransactionMsg() {
+        producer.sendSubmitTxMessage();
+        producer.sendConfirmTxMessage();
     }
 
 

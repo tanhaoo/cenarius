@@ -5,6 +5,7 @@ import com.th.cenarius.web.advice.DefaultResponseEntityExceptionHandler;
 import com.th.cenarius.web.advice.ResponseBodyHandlerAdvice;
 import com.th.cenarius.web.config.EnableExceptionHandleAspect;
 import com.th.cenarius.web.config.EnableInvokeRecordAspect;
+import com.th.cenarius.web.message.DefaultRocketMQTransactionDispatcher;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.Import;
 //@EnableSyncEventBus
 @Import({ResponseBodyHandlerAdvice.class,
         DefaultResponseEntityExceptionHandler.class,
+        DefaultRocketMQTransactionDispatcher.class
 })
 @EnableInvokeRecordAspect
 @EnableExceptionHandleAspect
