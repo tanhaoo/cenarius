@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @Author: Aaron
  * @Date: 2022/9/13
  */
-public interface BaseEnum<T extends Enum<T>> {
+public interface BaseEnum {
     /**
      * Get Enum Code
      *

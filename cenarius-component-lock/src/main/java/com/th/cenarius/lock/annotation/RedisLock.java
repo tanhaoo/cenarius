@@ -25,6 +25,7 @@ public @interface RedisLock {
 
     String collection() default "";
 
-    String property() default "";
+    Class expectType() default Object.class;
 
+    String invoke() default "";
 }

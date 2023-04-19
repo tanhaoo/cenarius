@@ -3392,5 +3392,56 @@ public class LeetCode {
             temp.remove(temp.size() - 1);
         }
     }
+
+    Integer count = 0;
+
+    @Test
+    public void solve() {
+        int[][] data = {{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+        int i = orangesRotting(data);
+        System.out.println(i);
+    }
+
+    Integer freshCount = 0;
+
+    public int orangesRotting(int[][] grid) {
+        int res;
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1)
+                    freshCount++;
+                if (grid[i][j] == 2)
+                    queue.add(new int[]{i, j});
+            }
+        }
+        res = bfs(grid, queue);
+        return freshCount == 0 ? res : -1;
+    }
+
+    public int bfs(int[][] grid, Queue<int[]> queue) {
+        int res = 0;
+        int[][] dire = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        while (!queue.isEmpty() && freshCount != 0) {
+            int size = queue.size();
+            for (int j = 0; j < size; j++) {
+                int[] curPos = queue.poll();
+                for (int i = 0; i < dire.length; i++) {
+                    int curRow = curPos[0] + dire[i][0];
+                    int curCol = curPos[1] + dire[i][1];
+                    if (curRow < 0 || curRow >= grid.length || curCol < 0 || curCol >= grid[0].length
+                            || grid[curRow][curCol] != 1)
+                        continue;
+                    queue.add(new int[]{curRow, curCol});
+                    grid[curRow][curCol] = 2;
+                    freshCount--;
+                }
+            }
+            res++;
+        }
+        return res;
+    }
+
+
 }
 

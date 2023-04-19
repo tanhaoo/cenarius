@@ -6,13 +6,19 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: Aaron
  * @Date: 2022/2/15
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Order {
 
     @NotNull

@@ -10,13 +10,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,8 +36,11 @@ public class RedisLockAdvice {
 
     private final RedissonClient client;
 
-    public RedisLockAdvice(RedissonClient client) {
+    private final ApplicationContext context;
+
+    public RedisLockAdvice(RedissonClient client, ApplicationContext context) {
         this.client = client;
+        this.context = context;
     }
 
     @Pointcut("@annotation(com.th.cenarius.lock.annotation.RedisLock)")
@@ -46,7 +49,7 @@ public class RedisLockAdvice {
     }
 
     @Around("process()")
-    public Object aroundExec(ProceedingJoinPoint point) throws Throwable {
+    public <T> Object aroundExec(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         Object[] args = point.getArgs();
@@ -54,14 +57,19 @@ public class RedisLockAdvice {
         String prefix = annotation.prefix();
         String value = annotation.value();
         String collection = annotation.collection();
-        String property = annotation.property();
+        Class<T> expectType = annotation.expectType();
+
+        String invoke = annotation.invoke();
+        T o = (T) SpELUtils.parseExpression(invoke, context, point.getThis(), Object.class);
+        System.err.println("o: " + o);
 
         Set<String> keys = new TreeSet<>();
         if (StringUtil.isNotEmpty(value)) {
-            keys.add(prefix + SpELUtils.parseExpression(value, method, args, String.class));
-        } else if (StringUtil.isNotEmpty(collection) && StringUtil.isNotEmpty(property)) {
-            Collection valOfCollection = SpELUtils.parseExpression(collection, method, args, Collection.class);
-            valOfCollection.stream().iterator().forEachRemaining(item -> keys.add(prefix + SpELUtils.parseExpression(property, item)));
+            T t = SpELUtils.parseExpression(value, method, args, expectType);
+            keys.add(prefix + t);
+        } else if (StringUtil.isNotEmpty(collection)) {
+            Collection lockCollection = SpELUtils.parseExpression(collection, method, args, Collection.class);
+            lockCollection.stream().iterator().forEachRemaining(item -> keys.add(prefix + item));
         }
         Map<String, RLock> lock = this.lock(keys);
         try {

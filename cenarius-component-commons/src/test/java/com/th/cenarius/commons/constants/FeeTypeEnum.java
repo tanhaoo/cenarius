@@ -4,7 +4,7 @@ package com.th.cenarius.commons.constants;
  * @Author: Aaron
  * @Date: 2022/9/13
  */
-public enum FeeTypeEnum implements BaseEnum<FeeTypeEnum> {
+public enum FeeTypeEnum implements BaseEnum {
     FREIGHT(1, "Freight"),
     TAX(2, "Tax"),
     SERVICE_FEE(3, "Service Fee"),

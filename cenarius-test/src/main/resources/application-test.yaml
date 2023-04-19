@@ -1,0 +1,4 @@
+redisson:
+  cluster: false
+  server: redis://10.181.141.133:6379
+  password: mgtZFmWQQnN5QgQ56n1Iwa7MYcHxgSTvvAzCaJSQnEU=
