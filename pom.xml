@@ -34,7 +34,7 @@
         <rocketmq-version>2.2.2</rocketmq-version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.16</lombok.version>
-        <fastjson.version>1.2.79</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -66,15 +66,15 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.12.0</version>
             </dependency>
 
         </dependencies>
@@ -82,6 +82,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,5 +1,9 @@
 package com.th.test;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.th.cenarius.event.EventListener;
 import com.th.test.app.event.OrderSubmitEventById;
 import com.th.test.app.event.OrderSubmitEventByOrder;
@@ -14,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -64,12 +69,14 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testGetField() throws IllegalAccessException {
+    public void testGetField() {
         Order order = new Order();
         order.orderPrice = new OrderPrice(10);
         Field field = ReflectionUtils.findField(Order.class, "orderPrice");
-        field.setAccessible(true);
-        field.set(order, new OrderPrice(20));
+        assert field != null;
+        ReflectionUtils.setField(field, order, new OrderPrice(20));
+//        field.setAccessible(true);
+//        field.set(order, new OrderPrice(20));
         System.out.println(order.orderPrice);
     }
 
@@ -98,5 +105,15 @@ public class ApplicationTest {
         System.out.println(list);
     }
 
+    @Test
+    public void testSerialize() throws JsonProcessingException {
+        String json = JSON.toJSONString(order.getItems());
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<OrderItem> copyOrderItems = mapper.readValue(json, new TypeReference<>() {
+        });
+        System.out.println(copyOrderItems);
+
+    }
 
 }
