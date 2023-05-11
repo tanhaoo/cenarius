@@ -18,6 +18,7 @@
         <module>cenarius-component-exception</module>
         <module>cenarius-codegen-mybatis</module>
         <module>cenarius-component-commons</module>
+        <module>cenarius-cola</module>
     </modules>
 
     <properties>
@@ -117,7 +118,6 @@
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-
 
     </dependencies>
 
