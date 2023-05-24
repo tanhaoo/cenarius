@@ -3,8 +3,8 @@ package com.th.test.pattern.strategy.config;
 import com.th.cenarius.web.common.strategy.StrategyFactory;
 import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
 import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
-import com.th.test.pattern.strategy.template.FormItemConverter;
-import com.th.test.pattern.strategy.template.FormItemTypeEnum;
+import com.th.test.pattern.template.FormItemConverter;
+import com.th.test.pattern.template.FormItemTypeEnum;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

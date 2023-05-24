@@ -1,4 +1,4 @@
-package com.th.cenarius.commons.utils.filter;
+package com.th.cenarius.commons;
 
 import java.math.BigDecimal;
 

@@ -1,10 +1,10 @@
-package com.th.test.pattern.strategy.template;
+package com.th.test.pattern.template;
 
 import com.th.cenarius.web.common.strategy.Strategy;
-import com.th.test.pattern.strategy.template.config.FormComponentProps;
-import com.th.test.pattern.strategy.template.config.FormItem;
-import com.th.test.pattern.strategy.template.config.FormItemConfig;
-import com.th.test.pattern.strategy.template.config.FormItemRule;
+import com.th.test.pattern.template.config.FormComponentProps;
+import com.th.test.pattern.template.config.FormItem;
+import com.th.test.pattern.template.config.FormItemConfig;
+import com.th.test.pattern.template.config.FormItemRule;
 
 import org.apache.commons.lang3.StringUtils;
 

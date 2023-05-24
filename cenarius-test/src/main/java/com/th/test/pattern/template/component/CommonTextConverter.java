@@ -1,8 +1,8 @@
-package com.th.test.pattern.strategy.template.component;
+package com.th.test.pattern.template.component;
 
-import com.th.test.pattern.strategy.template.FormItemConverter;
-import com.th.test.pattern.strategy.template.config.FormItemConfig;
-import com.th.test.pattern.strategy.template.config.FormItemRule;
+import com.th.test.pattern.template.FormItemConverter;
+import com.th.test.pattern.template.config.FormItemConfig;
+import com.th.test.pattern.template.config.FormItemRule;
 
 import java.util.List;
 

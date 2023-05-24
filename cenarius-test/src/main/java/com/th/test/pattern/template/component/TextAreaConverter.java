@@ -1,6 +1,6 @@
-package com.th.test.pattern.strategy.template.component;
+package com.th.test.pattern.template.component;
 
-import com.th.test.pattern.strategy.template.FormItemTypeEnum;
+import com.th.test.pattern.template.FormItemTypeEnum;
 
 import org.springframework.stereotype.Component;
 

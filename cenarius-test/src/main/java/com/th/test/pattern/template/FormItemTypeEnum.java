@@ -1,4 +1,4 @@
-package com.th.test.pattern.strategy.template;
+package com.th.test.pattern.template;
 
 /**
  * Form Item Type

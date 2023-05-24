@@ -1,6 +1,6 @@
-package com.th.test.pattern.strategy.template.config;
+package com.th.test.pattern.template.config;
 
-import com.th.test.pattern.strategy.template.FormItemTypeEnum;
+import com.th.test.pattern.template.FormItemTypeEnum;
 
 import lombok.Data;
 

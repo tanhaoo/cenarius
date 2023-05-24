@@ -21,8 +21,8 @@ public class SalesOrderDomainServiceImpl implements ISalesOrderDomainService {
 
     @Override
     public boolean orderCreate(SalesOrderAddCmd cmd) {
-        SalesOrder salesOrder = new SalesOrder("1", cmd.getDescription(), cmd.getTotalAmount(), cmd.getOperateUser());
-        salesOrderEvent.publishEvent(new SalesOrderEvents.SalesOrderCreateEvent(salesOrder));
+//        SalesOrder salesOrder = new SalesOrder("1", cmd.getDescription(), cmd.getTotalAmount(), cmd.getOperateUser());
+//        salesOrderEvent.publishEvent(new SalesOrderEvents.SalesOrderCreateEvent(salesOrder));
         return true;
     }
 

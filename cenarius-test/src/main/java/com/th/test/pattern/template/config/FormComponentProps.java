@@ -1,4 +1,4 @@
-package com.th.test.pattern.strategy.template.config;
+package com.th.test.pattern.template.config;
 
 import lombok.Data;
 

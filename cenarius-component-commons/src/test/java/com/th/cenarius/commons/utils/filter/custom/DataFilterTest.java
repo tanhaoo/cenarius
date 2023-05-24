@@ -1,4 +1,9 @@
-package com.th.cenarius.commons.utils.filter;
+package com.th.cenarius.commons.utils.filter.custom;
+
+import com.th.cenarius.commons.utils.filter.DataFilter;
+import com.th.cenarius.commons.utils.filter.NumberFilter;
+import com.th.cenarius.commons.utils.filter.OrFilter;
+import com.th.cenarius.commons.Order;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +68,7 @@ public class DataFilterTest {
         OrFilter<Integer> orFilter = new OrFilter<>(List.of(less10, greater40));
 
         List<ImmutablePair<String, BigDecimal>> origin = orders.stream()
-                .map(data -> ImmutablePair.of(data.getOrderId(), data.amount))
+                .map(data -> ImmutablePair.of(data.getOrderId(), data.getAmount()))
                 .collect(Collectors.toList());
         // data < 10 || data > 40
         List<Order> condition1 = orders.stream()
@@ -78,7 +83,7 @@ public class DataFilterTest {
         List<ImmutablePair<String, BigDecimal>> result = condition1
                 .stream()
                 .distinct()
-                .map(data -> ImmutablePair.of(data.getOrderId(), data.amount))
+                .map(data -> ImmutablePair.of(data.getOrderId(), data.getAmount()))
                 .collect(Collectors.toList());
 
         System.out.println(origin);

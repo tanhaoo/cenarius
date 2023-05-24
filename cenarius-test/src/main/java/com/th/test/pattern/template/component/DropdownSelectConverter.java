@@ -1,9 +1,9 @@
-package com.th.test.pattern.strategy.template.component;
+package com.th.test.pattern.template.component;
 
-import com.th.test.pattern.strategy.template.FormItemConverter;
-import com.th.test.pattern.strategy.template.FormItemTypeEnum;
-import com.th.test.pattern.strategy.template.config.FormComponentProps;
-import com.th.test.pattern.strategy.template.config.FormItemConfig;
+import com.th.test.pattern.template.FormItemConverter;
+import com.th.test.pattern.template.FormItemTypeEnum;
+import com.th.test.pattern.template.config.FormComponentProps;
+import com.th.test.pattern.template.config.FormItemConfig;
 
 import org.springframework.stereotype.Component;
 

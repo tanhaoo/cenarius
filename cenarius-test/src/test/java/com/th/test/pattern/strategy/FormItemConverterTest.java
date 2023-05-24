@@ -2,13 +2,13 @@ package com.th.test.pattern.strategy;
 
 import com.th.cenarius.web.common.strategy.StrategyFactory;
 import com.th.test.pattern.strategy.config.StrategyFactoryConfig;
-import com.th.test.pattern.strategy.template.FormItemConverter;
-import com.th.test.pattern.strategy.template.FormItemTypeEnum;
-import com.th.test.pattern.strategy.template.component.DropdownSelectConverter;
-import com.th.test.pattern.strategy.template.component.TextAreaConverter;
-import com.th.test.pattern.strategy.template.component.TextInputConverter;
-import com.th.test.pattern.strategy.template.config.FormItem;
-import com.th.test.pattern.strategy.template.config.FormItemConfig;
+import com.th.test.pattern.template.FormItemConverter;
+import com.th.test.pattern.template.FormItemTypeEnum;
+import com.th.test.pattern.template.component.DropdownSelectConverter;
+import com.th.test.pattern.template.component.TextAreaConverter;
+import com.th.test.pattern.template.component.TextInputConverter;
+import com.th.test.pattern.template.config.FormItem;
+import com.th.test.pattern.template.config.FormItemConfig;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
