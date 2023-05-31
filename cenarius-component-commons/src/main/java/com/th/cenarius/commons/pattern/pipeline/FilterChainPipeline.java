@@ -1,6 +1,5 @@
 package com.th.cenarius.commons.pattern.pipeline;
 
-import com.th.cenarius.commons.model.BizContext;
 import com.th.cenarius.commons.pattern.pipeline.filter.BizFilter;
 import com.th.cenarius.commons.pattern.pipeline.filter.DefaultFilterChain;
 
@@ -16,6 +15,10 @@ public class FilterChainPipeline<T extends BizFilter> {
     private DefaultFilterChain head;
 
     private DefaultFilterChain tail;
+
+    public FilterChainPipeline(String desc) {
+        log.info("Register " + desc + " Pipeline");
+    }
 
     public FilterChainPipeline addFilter(T filter) {
         DefaultFilterChain newChain = new DefaultFilterChain(filter);

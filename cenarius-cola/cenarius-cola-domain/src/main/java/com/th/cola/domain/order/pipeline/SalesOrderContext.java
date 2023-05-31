@@ -1,30 +1,33 @@
-package com.th.cenarius.commons.pattern.pipeline;
+package com.th.cola.domain.order.pipeline;
 
-import com.th.cenarius.commons.Order;
 import com.th.cenarius.commons.model.AbstractBizContext;
 import com.th.cenarius.commons.model.BizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.selector.FilterSelector;
+import com.th.cola.domain.order.model.SalesOrder;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * @Author: Aaron
- * @Date: 2023/5/18
+ * @Date: 2023/5/24
  */
-public class OrderContext extends AbstractBizContext {
+public class SalesOrderContext extends AbstractBizContext {
 
     @Getter
     @Setter
-    private Order orderModel;
+    private SalesOrder salesOrder;
 
-    public OrderContext(BizEnum bizEnum, FilterSelector selector) {
+    @Getter
+    @Setter
+    private Boolean continueFlag = true;
+
+    public SalesOrderContext(BizEnum bizEnum, FilterSelector selector) {
         super(bizEnum, selector);
     }
 
     @Override
     public boolean continueChain() {
-        return true;
+        return continueFlag;
     }
-
 }

@@ -16,7 +16,7 @@ public class PipelineConfig {
 
     @Bean
     public FilterChainPipeline<AbstractBizFilter<OrderContext>> orderPipeline() {
-        FilterChainPipeline<AbstractBizFilter<OrderContext>> orderPipeline = new FilterChainPipeline<>();
+        FilterChainPipeline<AbstractBizFilter<OrderContext>> orderPipeline = new FilterChainPipeline<>("order");
 
         orderPipeline
                 .addFilter("校验参数", checkBizFilter())

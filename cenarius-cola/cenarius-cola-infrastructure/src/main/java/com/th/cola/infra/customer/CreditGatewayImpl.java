@@ -1,4 +1,4 @@
-package com.th.cola.customer;
+package com.th.cola.infra.customer;
 
 import com.th.cola.domain.customer.Credit;
 import com.th.cola.domain.customer.gateway.CreditGateway;

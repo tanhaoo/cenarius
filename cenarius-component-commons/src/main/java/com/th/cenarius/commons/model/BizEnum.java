@@ -10,8 +10,8 @@ public enum BizEnum implements BaseEnum {
     /**
      * Business Code
      */
-    BIZ_ORDER(1, "create order"),
-    BIZ_2(2, "业务线2");
+    BIZ_ORDER(1, "Create order"),
+    BIZ_COMMONS(2, "Common Biz");
     private final Integer code;
     private final String name;
 

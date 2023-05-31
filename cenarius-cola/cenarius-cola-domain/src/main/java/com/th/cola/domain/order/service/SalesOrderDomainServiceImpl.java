@@ -1,11 +1,11 @@
 package com.th.cola.domain.order.service;
 
-import com.th.cola.domain.order.SalesOrder;
-import com.th.cola.dto.SalesOrderAddCmd;
-import com.th.cola.dto.event.SalesOrderEvents;
+import com.th.cenarius.commons.pattern.pipeline.FilterChainPipeline;
+import com.th.cola.domain.order.pipeline.SalesOrderContext;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -16,13 +16,14 @@ import javax.annotation.Resource;
 @Component
 public class SalesOrderDomainServiceImpl implements ISalesOrderDomainService {
 
-    @Resource
-    private ApplicationEventPublisher salesOrderEvent;
+    @Resource(name = "orderPipeline")
+    private FilterChainPipeline orderPipeline;
 
     @Override
-    public boolean orderCreate(SalesOrderAddCmd cmd) {
-//        SalesOrder salesOrder = new SalesOrder("1", cmd.getDescription(), cmd.getTotalAmount(), cmd.getOperateUser());
-//        salesOrderEvent.publishEvent(new SalesOrderEvents.SalesOrderCreateEvent(salesOrder));
+    public boolean orderCreate(SalesOrderContext context) {
+        context.getSalesOrder().setSalesOrderId(UUID.randomUUID().toString());
+        orderPipeline.getFilterChain().handle(context);
+
         return true;
     }
 

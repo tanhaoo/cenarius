@@ -1,4 +1,4 @@
-package com.th.cola.customer;
+package com.th.cola.infra.customer;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,6 +1,6 @@
 package com.th.cola.domain.order.service;
 
-import com.th.cola.dto.SalesOrderAddCmd;
+import com.th.cola.domain.order.pipeline.SalesOrderContext;
 
 /**
  * @Author: Aaron
@@ -8,7 +8,7 @@ import com.th.cola.dto.SalesOrderAddCmd;
  */
 public interface ISalesOrderDomainService {
 
-    boolean orderCreate(SalesOrderAddCmd cmd);
+    boolean orderCreate(SalesOrderContext context);
 
     boolean orderRevise();
 

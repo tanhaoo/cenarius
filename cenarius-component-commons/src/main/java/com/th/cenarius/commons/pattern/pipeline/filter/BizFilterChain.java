@@ -11,4 +11,5 @@ public interface BizFilterChain<T extends BizContext> {
     void handle(T context);
 
     void fireNext(T context);
+
 }
