@@ -19,6 +19,7 @@
         <module>cenarius-codegen-mybatis</module>
         <module>cenarius-component-commons</module>
         <module>cenarius-cola</module>
+        <module>cenarius-component-extension-starter</module>
     </modules>
 
     <properties>
