@@ -8,6 +8,7 @@ import com.th.cola.domain.order.pipeline.config.PipelineConfig;
 import com.th.cola.domain.order.pipeline.filter.OrderSavingFilter;
 import com.th.cola.domain.order.service.SalesOrderDomainServiceImpl;
 import com.th.cola.dto.SalesOrderAddCmd;
+import com.th.cola.infra.delivery.config.InfraConfiguration;
 import com.th.cola.infra.delivery.gateway.DeliveryGatewayImpl;
 import com.th.cola.infra.order.gateway.SalesOrderGatewayImpl;
 import com.th.cola.infra.order.gateway.SalesOrderPipelineGatewayImpl;
@@ -15,10 +16,12 @@ import com.th.cola.infra.product.gateway.ProductGatewayImpl;
 import com.th.cola.infra.promotion.gateway.PromotionGatewayImpl;
 import com.th.cola.order.SalesOrderServiceImpl;
 import com.th.cola.order.convertor.SalesOrderAppConvertorImpl;
+import com.th.extension.ExtensionExecutor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -45,12 +48,18 @@ import javax.annotation.Resource;
         PromotionGatewayImpl.class,
         DeliveryGatewayImpl.class,
         ProductGatewayImpl.class,
-        OrderSavingFilter.class
+        OrderSavingFilter.class,
 })
 public class SalesOrderServiceImplTest {
 
     @Resource
     private ISalesOrderService salesOrderService;
+
+    @MockBean
+    private ExtensionExecutor extensionExecutor;
+
+    @MockBean
+    private InfraConfiguration configuration;
 
     private List<SalesOrder> orders = new ArrayList<>();
 

@@ -10,5 +10,7 @@ public interface IDeliveryGateway {
 
     BigDecimal calculateFreight();
 
+    BigDecimal calculateFreightV2();
+
 
 }

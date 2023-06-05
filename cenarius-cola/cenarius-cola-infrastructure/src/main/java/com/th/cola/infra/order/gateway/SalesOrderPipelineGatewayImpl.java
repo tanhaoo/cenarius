@@ -18,17 +18,17 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class SalesOrderPipelineGatewayImpl implements ISalesOrderPipelineGateway {
 
-    private final ISalesOrderGateway salesOrderGateway;
+    private final ISalesOrderGateway salesOrderGatewayImpl;
 
     private final IProductGateway productGateway;
 
     private final IPromotionGateway promotionGateway;
 
-    private final IDeliveryGateway deliveryGateway;
+    private final IDeliveryGateway deliveryGatewayImpl;
 
     @Override
     public ISalesOrderGateway getSalesOrderGateway() {
-        return salesOrderGateway;
+        return salesOrderGatewayImpl;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class SalesOrderPipelineGatewayImpl implements ISalesOrderPipelineGateway
 
     @Override
     public IDeliveryGateway getDeliveryGateway() {
-        return deliveryGateway;
+        return deliveryGatewayImpl;
     }
 }

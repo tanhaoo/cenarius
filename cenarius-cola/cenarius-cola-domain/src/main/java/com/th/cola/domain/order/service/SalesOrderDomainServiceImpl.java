@@ -9,11 +9,14 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Author: Aaron
  * @Date: 2023/5/5
  */
 @Component
+@Slf4j
 public class SalesOrderDomainServiceImpl implements ISalesOrderDomainService {
 
     @Resource(name = "orderPipeline")
@@ -23,6 +26,8 @@ public class SalesOrderDomainServiceImpl implements ISalesOrderDomainService {
     public boolean orderCreate(SalesOrderContext context) {
         context.getSalesOrder().setSalesOrderId(UUID.randomUUID().toString());
         orderPipeline.getFilterChain().handle(context);
+
+        log.info("Sales Order: {}", context.getSalesOrder());
 
         return true;
     }

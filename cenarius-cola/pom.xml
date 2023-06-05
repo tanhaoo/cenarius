@@ -24,6 +24,7 @@
         <cola.components.version>4.4.0-SNAPSHOT</cola.components.version>
 
         <spring-boot.version>2.7.2</spring-boot.version>
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <mybatis-starter.version>2.2.2</mybatis-starter.version>
     </properties>
 
@@ -63,8 +64,20 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.th</groupId>
             <artifactId>cenarius-component-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.th</groupId>
+            <artifactId>cenarius-component-extension-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -107,6 +120,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -114,6 +128,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -141,6 +156,17 @@
                 <version>1.2.83</version>
             </dependency>
             <!-- Misc End -->
+
+            <!--Spring cloud alibaba 2.1.0.RELEASE-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

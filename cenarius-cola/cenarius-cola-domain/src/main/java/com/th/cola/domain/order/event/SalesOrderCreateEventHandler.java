@@ -20,14 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 public class SalesOrderCreateEventHandler {
 
     @Resource
-    private ISalesOrderGateway salesOrderGateway;
+    private ISalesOrderGateway salesOrderGatewayImpl;
 
     @EventListener
     public void handleForDB(SalesOrderEvents.SalesOrderCreateEvent event) {
         SalesOrder salesOrder = (SalesOrder) event.getSource();
         log.info("Handle SalesOrderCreateEvent for DB, {}", salesOrder.getSalesOrderId());
 
-        String orderId = salesOrderGateway.saveSalesOrder(salesOrder);
+        String orderId = salesOrderGatewayImpl.saveSalesOrder(salesOrder);
     }
 
     @EventListener
@@ -42,6 +42,6 @@ public class SalesOrderCreateEventHandler {
         SalesOrder salesOrder = (SalesOrder) event.getSource();
         log.info("Handle SalesOrderCreateEvent for Item, {}", salesOrder.getSalesOrderId());
 
-        salesOrderGateway.saveSalesOrderItems(salesOrder);
+        salesOrderGatewayImpl.saveSalesOrderItems(salesOrder);
     }
 }
