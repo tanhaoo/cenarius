@@ -3,8 +3,8 @@ package com.th.cola.order;
 //package by domain, not by duty
 
 
-import com.th.cenarius.commons.model.BizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.selector.LocalListBasedFilterSelector;
+import com.th.cola.BizEnum;
 import com.th.cola.api.order.ISalesOrderService;
 import com.th.cola.domain.order.pipeline.SalesOrderContext;
 import com.th.cola.domain.order.pipeline.filter.BizValidationFilter;

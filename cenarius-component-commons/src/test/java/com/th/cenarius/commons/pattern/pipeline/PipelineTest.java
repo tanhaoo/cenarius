@@ -1,7 +1,6 @@
 package com.th.cenarius.commons.pattern.pipeline;
 
 import com.th.cenarius.commons.Order;
-import com.th.cenarius.commons.model.BizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.CalculatePromoFilter;
 import com.th.cenarius.commons.pattern.pipeline.filter.CheckBizFilter;
 import com.th.cenarius.commons.pattern.pipeline.filter.SaveOrderFilter;

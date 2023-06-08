@@ -1,12 +1,13 @@
-package com.th.cenarius.commons.model;
+package com.th.cenarius.commons.pattern.pipeline;
 
 import com.th.cenarius.commons.constants.BaseEnum;
+import com.th.cenarius.commons.model.IBizEnum;
 
 /**
  * @Author: Aaron
  * @Date: 2023/5/18
  */
-public enum BizEnum implements BaseEnum {
+public enum BizEnum implements IBizEnum {
     /**
      * Business Code
      */

@@ -1,7 +1,7 @@
 package com.th.cola.domain.order.pipeline;
 
 import com.th.cenarius.commons.model.AbstractBizContext;
-import com.th.cenarius.commons.model.BizEnum;
+import com.th.cenarius.commons.model.IBizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.selector.FilterSelector;
 import com.th.cola.domain.order.model.SalesOrder;
 
@@ -22,7 +22,7 @@ public class SalesOrderContext extends AbstractBizContext {
     @Setter
     private Boolean continueFlag = true;
 
-    public SalesOrderContext(BizEnum bizEnum, FilterSelector selector) {
+    public SalesOrderContext(IBizEnum bizEnum, FilterSelector selector) {
         super(bizEnum, selector);
     }
 

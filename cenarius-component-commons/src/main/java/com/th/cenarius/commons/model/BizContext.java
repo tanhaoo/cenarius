@@ -13,7 +13,7 @@ public interface BizContext {
      *
      * @return {@link BizEnum} enum
      */
-    BizEnum getBizCode();
+    IBizEnum getBizCode();
 
     /**
      * Get filter selector

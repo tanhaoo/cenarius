@@ -8,16 +8,16 @@ import com.th.cenarius.commons.pattern.pipeline.filter.selector.FilterSelector;
  */
 public abstract class AbstractBizContext implements BizContext {
 
-    private final BizEnum bizEnum;
+    private final IBizEnum bizEnum;
 
     private final FilterSelector selector;
 
-    protected AbstractBizContext(BizEnum bizEnum, FilterSelector selector) {
+    protected AbstractBizContext(IBizEnum bizEnum, FilterSelector selector) {
         this.bizEnum = bizEnum;
         this.selector = selector;
     }
 
-    public BizEnum getBizCode() {
+    public IBizEnum getBizCode() {
         return bizEnum;
     }
 

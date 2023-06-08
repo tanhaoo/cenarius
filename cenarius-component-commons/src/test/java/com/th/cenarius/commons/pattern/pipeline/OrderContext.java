@@ -2,7 +2,7 @@ package com.th.cenarius.commons.pattern.pipeline;
 
 import com.th.cenarius.commons.Order;
 import com.th.cenarius.commons.model.AbstractBizContext;
-import com.th.cenarius.commons.model.BizEnum;
+import com.th.cenarius.commons.model.IBizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.selector.FilterSelector;
 
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class OrderContext extends AbstractBizContext {
     @Setter
     private Order orderModel;
 
-    public OrderContext(BizEnum bizEnum, FilterSelector selector) {
+    public OrderContext(IBizEnum bizEnum, FilterSelector selector) {
         super(bizEnum, selector);
     }
 
