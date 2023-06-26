@@ -1,0 +1,32 @@
+package com.th.cenarius.commons.fee;
+
+import com.th.cenarius.commons.Order;
+
+import java.math.BigDecimal;
+
+import lombok.RequiredArgsConstructor;
+
+/**
+ * @Author: Aaron
+ * @Date: 2023/6/26
+ */
+@RequiredArgsConstructor
+public class OrderFeeItem implements FeeItem<Order> {
+
+    private final Order order;
+
+    @Override
+    public BigDecimal getFeeItemOriginMoney() {
+        return order.getOrderItemFee();
+    }
+
+    @Override
+    public FeeItemType getFeeItemType() {
+        return FeeItemType.GOODS_FEE;
+    }
+
+    @Override
+    public Order getOrderInfo() {
+        return order;
+    }
+}

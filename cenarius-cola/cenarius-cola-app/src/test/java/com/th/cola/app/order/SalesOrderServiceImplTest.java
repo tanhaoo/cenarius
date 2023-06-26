@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -96,5 +97,16 @@ public class SalesOrderServiceImplTest {
     public void testSubmitOrder() {
         System.out.println(JSON.toJSONString(cmd));
         salesOrderService.submitOrder(cmd);
+    }
+
+    @Test
+    public void test() {
+
+        System.out.println(JSON.toJSONString(cmd));
+
+        List<String> collect = cmd.getItems().stream().map(SalesOrderAddCmd.SalesOrderItem::getItemId).collect(Collectors.toList());
+        collect.replaceAll(val -> "123");
+        System.err.println(collect);
+        System.err.println(cmd.getItems());
     }
 }

@@ -1,0 +1,16 @@
+package com.th.cenarius.commons.fee;
+
+import java.math.BigDecimal;
+
+/**
+ * @Author: Aaron
+ * @Date: 2023/6/8
+ */
+public interface FeeItem<O> {
+
+    BigDecimal getFeeItemOriginMoney();
+
+    FeeItemType getFeeItemType();
+
+    O getOrderInfo();
+}
