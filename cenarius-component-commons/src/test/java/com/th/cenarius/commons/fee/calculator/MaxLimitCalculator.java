@@ -11,7 +11,7 @@ import com.th.cenarius.commons.fee.IFeeItemType;
 import com.th.cenarius.commons.fee.pay.IPayItem;
 import com.th.cenarius.commons.fee.pay.PayGroup;
 import com.th.cenarius.commons.fee.pay.PayType;
-import com.th.cenarius.commons.fee.payItem.PlusPayItem;
+import com.th.cenarius.commons.fee.payItem.MaxLimitPayItem;
 import com.th.cenarius.commons.fee.rule.FeeRule;
 import com.th.cenarius.commons.fee.rule.IFeeRuleType;
 
@@ -24,53 +24,47 @@ import java.util.Optional;
  * @Author: Aaron
  * @Date: 2023/6/12
  */
-public class PlusRuleCalculator extends AbstractCalculator<Order> {
+public class MaxLimitCalculator extends AbstractCalculator<Order> {
 
-    private final BigDecimal discountRate;
+    private final BigDecimal maxAmount;
 
-    private Optional<BigDecimal> payMoney = Optional.empty();
+    private Optional<BigDecimal> limitDeductAmount = Optional.empty();
 
-    private Order order;
-
-    public PlusRuleCalculator(FeeCalculate<Order> feeCalculate, IFeeRuleType ruleType, BigDecimal discountRate) {
+    public MaxLimitCalculator(FeeCalculate<Order> feeCalculate, IFeeRuleType ruleType, BigDecimal maxAmount) {
         super(feeCalculate, ruleType);
-        this.discountRate = discountRate;
+        this.maxAmount = maxAmount;
     }
 
     @Override
     public Map<IFeeItemType, List<IPayItem>> payItemList() {
         Map<IFeeItemType, List<IPayItem>> maps = Maps.newHashMap();
 
-        if (payMoney.isPresent()) {
+        if (limitDeductAmount.isPresent()) {
             List<IPayItem> list = Lists.newArrayList();
-            PlusPayItem plusPayItem = new PlusPayItem(payMoney.get(), PayType.RED_PACKET, PayGroup.VIRTUAL_PROPERTY);
-            plusPayItem.setUserId(order.getUserId());
-            list.add(plusPayItem);
+
+            MaxLimitPayItem maxLimitPayItem = new MaxLimitPayItem(limitDeductAmount.get(), PayType.POINTS, PayGroup.CAMPAIGN);
+            list.add(maxLimitPayItem);
             maps.put(FeeItemTypeEnum.GOODS_FEE, list);
         }
-
         return maps;
     }
 
     @Override
     public Map<IFeeItemType, BigDecimal> currentPayItem(Map<IFeeItemType, BigDecimal> previous, Order context) {
         Map<IFeeItemType, BigDecimal> maps = Maps.newHashMap();
-        if (context.getUserPlus()) {
-            order = context;
-            BigDecimal previousAmount = previous.get(FeeItemTypeEnum.GOODS_FEE);
-            if (previousAmount.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal discountAmount = previousAmount.multiply(discountRate);
-                maps.put(FeeItemTypeEnum.GOODS_FEE, discountAmount);
-                this.payMoney = Optional.of(discountAmount);
-            }
+
+        BigDecimal previousFee = previous.get(FeeItemTypeEnum.GOODS_FEE);
+        if (previousFee.compareTo(maxAmount) > 0) {
+            BigDecimal exceedAmount = previousFee.subtract(maxAmount);
+            maps.put(FeeItemTypeEnum.GOODS_FEE, exceedAmount);
+            this.limitDeductAmount = Optional.of(exceedAmount);
         }
 
         return maps;
     }
 
-
     @Override
     public FeeCalculate getCalculator(FeeCalculate calculate, FeeRule rule) {
-        return new PlusRuleCalculator(calculate, rule.getRuleType(), rule.getConfigValue());
+        return new MaxLimitCalculator(calculate, rule.getRuleType(), rule.getConfigValue());
     }
 }

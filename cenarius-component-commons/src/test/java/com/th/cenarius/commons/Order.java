@@ -24,6 +24,8 @@ public class Order {
 
     private String userId;
 
+    private Boolean userPlus;
+
     private BigDecimal orderItemFee;
 
     private BigDecimal taxFee;

@@ -10,7 +10,7 @@ public interface FeeRule {
 
     BigDecimal getConfigValue();
 
-    FeeRuleType getRuleType();
+    IFeeRuleType getRuleType();
 
     Integer getOrder();
 }

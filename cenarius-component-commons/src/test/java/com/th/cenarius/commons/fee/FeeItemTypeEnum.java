@@ -6,7 +6,7 @@ import com.th.cenarius.commons.constants.BaseEnum;
  * @Author: Aaron
  * @Date: 2023/6/8
  */
-public enum FeeItemType implements BaseEnum {
+public enum FeeItemTypeEnum implements IFeeItemType {
     /**
      * Fee Item Type
      */
@@ -18,7 +18,7 @@ public enum FeeItemType implements BaseEnum {
     private final Integer code;
     private final String name;
 
-    FeeItemType(Integer code, String name) {
+    FeeItemTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -33,8 +33,8 @@ public enum FeeItemType implements BaseEnum {
         return name;
     }
 
-    public static FeeItemType of(Integer code) {
-        return BaseEnum.parseByCode(FeeItemType.class, code);
+    public static FeeItemTypeEnum of(Integer code) {
+        return BaseEnum.parseByCode(FeeItemTypeEnum.class, code);
     }
 
 

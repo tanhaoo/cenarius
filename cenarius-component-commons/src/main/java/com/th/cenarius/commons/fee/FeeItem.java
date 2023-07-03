@@ -10,7 +10,7 @@ public interface FeeItem<O> {
 
     BigDecimal getFeeItemOriginMoney();
 
-    FeeItemType getFeeItemType();
+    IFeeItemType getFeeItemType();
 
     O getOrderInfo();
 }

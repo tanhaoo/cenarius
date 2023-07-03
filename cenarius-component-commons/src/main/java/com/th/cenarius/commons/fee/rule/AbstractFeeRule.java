@@ -13,7 +13,7 @@ public class AbstractFeeRule implements FeeRule {
 
     private final BigDecimal configValue;
 
-    private final FeeRuleType ruleType;
+    private final IFeeRuleType ruleType;
 
     private final Integer order;
 
@@ -23,7 +23,7 @@ public class AbstractFeeRule implements FeeRule {
     }
 
     @Override
-    public FeeRuleType getRuleType() {
+    public IFeeRuleType getRuleType() {
         return ruleType;
     }
 

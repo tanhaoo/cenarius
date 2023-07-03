@@ -21,8 +21,8 @@ public class OrderFeeItem implements FeeItem<Order> {
     }
 
     @Override
-    public FeeItemType getFeeItemType() {
-        return FeeItemType.GOODS_FEE;
+    public IFeeItemType getFeeItemType() {
+        return FeeItemTypeEnum.GOODS_FEE;
     }
 
     @Override

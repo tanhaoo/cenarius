@@ -1,6 +1,6 @@
 package com.th.test.pattern.template;
 
-import com.th.cenarius.web.common.strategy.Strategy;
+import com.th.cenarius.commons.pattern.strategy.Strategy;
 import com.th.test.pattern.template.config.FormComponentProps;
 import com.th.test.pattern.template.config.FormItem;
 import com.th.test.pattern.template.config.FormItemConfig;

@@ -1,6 +1,6 @@
 package com.th.test.pattern.strategy.config;
 
-import com.th.cenarius.web.common.strategy.StrategyFactory;
+import com.th.cenarius.commons.pattern.strategy.StrategyFactory;
 import com.th.test.pattern.strategy.paycallback.PayCallbackStrategy;
 import com.th.test.pattern.strategy.paymenttype.PaymentTypeStrategy;
 import com.th.test.pattern.template.FormItemConverter;

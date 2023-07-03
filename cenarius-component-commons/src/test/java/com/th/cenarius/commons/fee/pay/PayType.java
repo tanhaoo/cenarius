@@ -1,23 +1,21 @@
-package com.th.cenarius.commons.pay;
+package com.th.cenarius.commons.fee.pay;
 
 import com.th.cenarius.commons.constants.BaseEnum;
 
 /**
  * @Author: Aaron
- * @Date: 2023/6/20
+ * @Date: 2023/6/13
  */
-public enum PayGroup implements BaseEnum {
+public enum PayType implements IPayType {
     /**
-     * Pay Group
+     * Pay Type
      */
-    PLATFORM_PAY(1, "Platform Pay"),
-    THIRD_PAY(2, "Third Pay"),
-    CREDIT_CARD(3, "Credit Card");
-
+    RED_PACKET(1, "Red Packet"),
+    POINTS(4, "Points");
     private final Integer code;
     private final String name;
 
-    PayGroup(Integer code, String name) {
+    PayType(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -32,7 +30,7 @@ public enum PayGroup implements BaseEnum {
         return name;
     }
 
-    public static PayGroup of(Integer code) {
-        return BaseEnum.parseByCode(PayGroup.class, code);
+    public static IPayType of(Integer code) {
+        return BaseEnum.parseByCode(PayType.class, code);
     }
 }

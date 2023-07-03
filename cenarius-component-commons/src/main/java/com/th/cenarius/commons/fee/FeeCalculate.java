@@ -1,6 +1,7 @@
 package com.th.cenarius.commons.fee;
 
-import com.th.cenarius.commons.pay.PayItem;
+import com.th.cenarius.commons.fee.rule.IFeeRuleType;
+import com.th.cenarius.commons.fee.pay.IPayItem;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.Map;
  */
 public interface FeeCalculate<O> {
 
-    Map<FeeItemType, List<PayItem>> payItemList(List<FeeItem<O>> items);
+    Map<IFeeItemType, List<IPayItem>> payItemList(List<FeeItem<O>> items);
 
-    Map<FeeItemType, BigDecimal> calculateWaitPay(List<FeeItem<O>> items);
+    Map<IFeeItemType, BigDecimal> calculateWaitPay(List<FeeItem<O>> items);
 
-    Unique getUnique();
+    IFeeRuleType getFeeRuleType();
 
 }

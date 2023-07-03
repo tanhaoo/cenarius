@@ -8,14 +8,14 @@ import java.util.Optional;
  * @Author: Aaron
  * @Date: 2023/6/8
  */
-public enum FeeRuleType implements BaseEnum {
+public enum FeeRuleTypeEnum implements IFeeRuleType {
     /**
      * Fee Rule Type
      */
     PLUS_RULE(1, "plus会员规则"),
     MAX_LIMIT(2, "限额规则");
 
-    FeeRuleType(Integer code, String name) {
+    FeeRuleTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -33,7 +33,7 @@ public enum FeeRuleType implements BaseEnum {
         return this.name;
     }
 
-    public static Optional<FeeRuleType> of(Integer code) {
-        return Optional.ofNullable(BaseEnum.parseByCode(FeeRuleType.class, code));
+    public static Optional<FeeRuleTypeEnum> of(Integer code) {
+        return Optional.ofNullable(BaseEnum.parseByCode(FeeRuleTypeEnum.class, code));
     }
 }

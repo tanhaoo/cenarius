@@ -1,4 +1,4 @@
-package com.th.cenarius.web.common.strategy;
+package com.th.cenarius.commons.pattern.strategy;
 
 /**
  * @Author: Aaron

@@ -1,6 +1,7 @@
 package com.th.test.pattern.strategy.paymenttype;
 
-import com.th.cenarius.web.common.strategy.Strategy;
+
+import com.th.cenarius.commons.pattern.strategy.Strategy;
 
 /**
  * @Author: Aaron

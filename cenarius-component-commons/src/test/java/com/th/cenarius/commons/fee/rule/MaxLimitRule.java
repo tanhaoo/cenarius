@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 public class MaxLimitRule extends AbstractFeeRule {
 
-    public MaxLimitRule(BigDecimal configValue, FeeRuleType ruleType, Integer order) {
+    public MaxLimitRule(BigDecimal configValue, IFeeRuleType ruleType, Integer order) {
         super(configValue, ruleType, order);
     }
 }

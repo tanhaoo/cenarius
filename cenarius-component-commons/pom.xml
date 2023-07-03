@@ -17,6 +17,13 @@
     </properties>
 
     <dependencies>
+
+        <!-- AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- Unit Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

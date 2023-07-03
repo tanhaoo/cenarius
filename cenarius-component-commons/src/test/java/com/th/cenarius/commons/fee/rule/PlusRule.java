@@ -15,7 +15,7 @@ public class PlusRule extends AbstractFeeRule {
     @Setter
     private String userId;
 
-    public PlusRule(BigDecimal configValue, FeeRuleType ruleType, Integer order) {
+    public PlusRule(BigDecimal configValue, IFeeRuleType ruleType, Integer order) {
         super(configValue, ruleType, order);
     }
 }
