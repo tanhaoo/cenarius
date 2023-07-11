@@ -1,0 +1,53 @@
+package ${dtoPackage}.command;
+
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * <p>
+ * $!{domainName}CreateCmd
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ${domainName}CreateCmd {
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(!((${field.propertyName} == 'createTime') || (${field.propertyName} == 'updateTime')))
+
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+    #end
+    #if("$!field.comment" != "")
+    /**
+     * ${field.comment}
+     */
+    #end
+    private ${field.propertyType} ${field.propertyName};
+    #end
+#end
+
+    private ${domainName}CreateCmdResult execResult = new ${domainName}CreateCmdResult();
+
+    @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class ${domainName}CreateCmdResult {
+        @Schema(description = "Identity of ${lowerDomainName}.", example = "109594362665033728")
+        private String id;
+
+    }
+}

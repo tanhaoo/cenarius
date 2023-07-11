@@ -1,0 +1,75 @@
+package ${package.ServiceImpl};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${domainPackage}.${domainName};
+import ${appConvertorPackage}.${appConvertorName};
+import ${dtoPackage}.command.${domainName}CreateCmd;
+import ${dtoPackage}.command.${domainName}ReviseCmd;
+import ${dtoPackage}.query.${domainName}PageQuery;
+import ${dtoPackage}.data.${domainName}DTO;
+import ${gatewayPackage}.I${gatewayName};
+import ${gatewayImplPackage}.${gatewayName};
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import ${qryExePackage}.*;
+import ${cmdExePackage}.*;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName} Service Impl
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName} implements I${serviceName} {
+
+    @Resource
+    private ${domainName}CreateCmdExe ${lowerDomainName}CreateCmdExe;
+
+    @Resource
+    private ${domainName}ReviseCmdExe ${lowerDomainName}ReviseCmdExe;
+
+    @Resource
+    private ${domainName}RemoveCmdExe ${lowerDomainName}RemoveCmdExe;
+
+    @Resource
+    private ${domainName}ByIdQryExe ${lowerDomainName}ByIdQryExe;
+
+    @Resource
+    private ${domainName}ByPageQryExe ${lowerDomainName}ByPageQryExe;
+
+    @Override
+    public void create${domainName}(${domainName}CreateCmd cmd) {
+        String id = ${lowerDomainName}CreateCmdExe.execute(cmd);
+        cmd.getExecResult().setId(id);
+    }
+
+    @Override
+    public boolean revise${domainName}(${domainName}ReviseCmd cmd) {
+        return ${lowerDomainName}ReviseCmdExe.execute(cmd);
+    }
+
+    @Override
+    public boolean remove${domainName}(String id) {
+        return ${lowerDomainName}RemoveCmdExe.execute(id);
+    }
+
+    @Override
+    public ${domainName}DTO get${domainName}ById(String id){
+        return ${lowerDomainName}ByIdQryExe.execute(id);
+    }
+
+    @Override
+    public IPage<${domainName}DTO> getListByPage(Long page, Long pageSize) {
+        return ${lowerDomainName}ByPageQryExe.execute(new ${domainName}PageQuery<>(new Page<>(page, pageSize), new QueryWrapper<>()));
+    }
+
+}
+

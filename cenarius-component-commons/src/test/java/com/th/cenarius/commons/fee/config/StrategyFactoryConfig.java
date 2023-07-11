@@ -1,12 +1,12 @@
 package com.th.cenarius.commons.fee.config;
 
-import com.th.cenarius.commons.fee.CalculatorStrategy;
-import com.th.cenarius.commons.fee.FeeCalculate;
+import com.th.cenarius.commons.pattern.fee.CalculatorStrategy;
+import com.th.cenarius.commons.pattern.fee.FeeCalculate;
 import com.th.cenarius.commons.fee.calculator.MaxLimitCalculator;
 import com.th.cenarius.commons.fee.calculator.PlusRuleCalculator;
-import com.th.cenarius.commons.fee.rule.FeeRule;
+import com.th.cenarius.commons.pattern.fee.rule.FeeRule;
 import com.th.cenarius.commons.fee.rule.FeeRuleTypeEnum;
-import com.th.cenarius.commons.fee.rule.IFeeRuleType;
+import com.th.cenarius.commons.pattern.fee.rule.IFeeRuleType;
 import com.th.cenarius.commons.fee.rule.MaxLimitRule;
 import com.th.cenarius.commons.fee.rule.PlusRule;
 import com.th.cenarius.commons.pattern.strategy.StrategyFactory;

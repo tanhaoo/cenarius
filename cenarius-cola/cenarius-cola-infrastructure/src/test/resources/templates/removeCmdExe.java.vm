@@ -1,0 +1,27 @@
+package ${cmdExePackage};
+
+import ${gatewayPackage}.I${gatewayName};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName}RemoveCmdExecute
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${domainName}RemoveCmdExe {
+
+    @Resource
+    private I${gatewayName} ${lowerGatewayName};
+
+    public boolean execute(String id) {
+        return ${lowerGatewayName}.remove${domainName}(id);
+    }
+
+}
+

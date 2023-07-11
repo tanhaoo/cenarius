@@ -1,0 +1,30 @@
+package ${dtoPackage}.query;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * <p>
+ * $!{domainName}PageQuery
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ${domainName}PageQuery<T> {
+
+    private Page<T> page;
+
+    private QueryWrapper<T> wrapper;
+}

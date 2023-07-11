@@ -25,7 +25,9 @@
 
         <spring-boot.version>2.7.2</spring-boot.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <mybatis-starter.version>2.2.2</mybatis-starter.version>
+<!--        <mybatis-starter.version>3.0.2</mybatis-starter.version>-->
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <com.th.version>0.0.1-SNAPSHOT</com.th.version>
     </properties>
 
     <modules>
@@ -34,7 +36,7 @@
         <module>cenarius-cola-app</module>
         <module>cenarius-cola-domain</module>
         <module>cenarius-cola-infrastructure</module>
-        <module>start</module>
+        <module>cenarius-cola-start</module>
     </modules>
 
     <dependencies>
@@ -72,13 +74,22 @@
         <dependency>
             <groupId>com.th</groupId>
             <artifactId>cenarius-component-commons</artifactId>
-            <version>${project.version}</version>
+            <version>${com.th.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.th</groupId>
             <artifactId>cenarius-component-extension-starter</artifactId>
-            <version>${project.version}</version>
+            <version>${com.th.version}</version>
+        </dependency>
+
+        <!-- ======================================================== -->
+        <!-- ORM -->
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
 
     </dependencies>
@@ -129,11 +140,11 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-starter.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                <version>${mybatis-starter.version}</version>-->
+<!--            </dependency>-->
 
             <!--Validation API-->
             <!--
@@ -199,6 +210,12 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>3.1.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>

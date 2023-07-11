@@ -1,0 +1,28 @@
+package ${appConvertorPackage};
+
+import ${domainPackage}.${domainName};
+import ${dtoPackage}.command.${domainName}CreateCmd;
+import ${dtoPackage}.command.${domainName}ReviseCmd;
+import ${dtoPackage}.data.${domainName}DTO;
+
+import org.mapstruct.Mapper;
+
+/**
+ * <p>
+ * $!{table.comment}AppConvertor
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Mapper(componentModel = "spring")
+public interface ${appConvertorName} {
+
+    ${domainName} to${domainName}(${domainName}CreateCmd cmd);
+
+    ${domainName} to${domainName}(${domainName}ReviseCmd cmd);
+
+    ${domainName}DTO to${domainName}DTO(${domainName} entity);
+
+
+}

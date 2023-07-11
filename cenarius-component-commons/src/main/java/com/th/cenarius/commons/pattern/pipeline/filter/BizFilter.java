@@ -1,6 +1,6 @@
 package com.th.cenarius.commons.pattern.pipeline.filter;
 
-import com.th.cenarius.commons.model.BizContext;
+import com.th.cenarius.commons.pattern.pipeline.model.BizContext;
 
 /**
  * @Author: Aaron

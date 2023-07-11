@@ -1,5 +1,8 @@
 package com.th.cenarius.commons.fee.rule;
 
+import com.th.cenarius.commons.pattern.fee.rule.AbstractFeeRule;
+import com.th.cenarius.commons.pattern.fee.rule.IFeeRuleType;
+
 import java.math.BigDecimal;
 
 import lombok.Getter;

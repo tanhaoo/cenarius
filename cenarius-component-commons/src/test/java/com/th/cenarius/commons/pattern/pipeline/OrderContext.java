@@ -1,8 +1,8 @@
 package com.th.cenarius.commons.pattern.pipeline;
 
 import com.th.cenarius.commons.Order;
-import com.th.cenarius.commons.model.AbstractBizContext;
-import com.th.cenarius.commons.model.IBizEnum;
+import com.th.cenarius.commons.pattern.pipeline.model.AbstractBizContext;
+import com.th.cenarius.commons.pattern.pipeline.model.IBizEnum;
 import com.th.cenarius.commons.pattern.pipeline.filter.selector.FilterSelector;
 
 import lombok.Getter;

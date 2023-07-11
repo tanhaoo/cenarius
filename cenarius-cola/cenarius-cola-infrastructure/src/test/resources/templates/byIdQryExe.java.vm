@@ -1,0 +1,32 @@
+package ${qryExePackage};
+
+import ${dtoPackage}.data.${domainName}DTO;
+import ${appConvertorPackage}.${appConvertorName};
+import ${gatewayPackage}.I${gatewayName};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName}ByIdQryExecute
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${domainName}ByIdQryExe {
+
+    @Resource
+    private I${gatewayName} ${lowerGatewayName};
+
+    @Resource
+    private ${appConvertorName} ${lowerConvertorName};
+
+    public ${domainName}DTO execute(String id) {
+        return ${lowerConvertorName}.to${domainName}DTO(${lowerGatewayName}.get${domainName}ById(id));
+    }
+
+}
+

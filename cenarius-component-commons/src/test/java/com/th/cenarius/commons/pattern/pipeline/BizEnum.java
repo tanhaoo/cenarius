@@ -1,7 +1,7 @@
 package com.th.cenarius.commons.pattern.pipeline;
 
 import com.th.cenarius.commons.constants.BaseEnum;
-import com.th.cenarius.commons.model.IBizEnum;
+import com.th.cenarius.commons.pattern.pipeline.model.IBizEnum;
 
 /**
  * @Author: Aaron

@@ -1,6 +1,7 @@
 package com.th.cenarius.commons.fee;
 
 import com.th.cenarius.commons.constants.BaseEnum;
+import com.th.cenarius.commons.pattern.fee.IFeeItemType;
 
 /**
  * @Author: Aaron

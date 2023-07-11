@@ -1,8 +1,8 @@
 package com.th.cenarius.commons.fee.payItem;
 
-import com.th.cenarius.commons.fee.pay.AbstractPayItem;
-import com.th.cenarius.commons.fee.pay.IPayGroup;
-import com.th.cenarius.commons.fee.pay.IPayType;
+import com.th.cenarius.commons.pattern.fee.pay.AbstractPayItem;
+import com.th.cenarius.commons.pattern.fee.pay.IPayGroup;
+import com.th.cenarius.commons.pattern.fee.pay.IPayType;
 
 import java.math.BigDecimal;
 

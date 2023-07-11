@@ -1,0 +1,65 @@
+package ${gatewayImplPackage};
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${domainPackage}.${domainName};
+import ${convertorPackage}.${convertorName};
+import ${gatewayPackage}.I${gatewayName};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName} Gateway Impl
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${gatewayName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements I${gatewayName} {
+
+    @Resource
+    private ${convertorName} ${lowerConvertorName};
+
+    @Override
+    public String create${domainName}(${domainName} entity) {
+        ${entity} data = ${lowerConvertorName}.toDataObject(entity);
+        this.save(data);
+        return data.getId();
+    }
+
+    @Override
+    public boolean revise${domainName}(${domainName} entity) {
+        return this.updateById(${lowerConvertorName}.toDataObject(entity));
+    }
+
+    @Override
+    public boolean remove${domainName}(String id) {
+        return this.removeById(id);
+    }
+
+    @Override
+    public ${domainName} get${domainName}ById(String id) {
+        return ${lowerConvertorName}.toDomain(this.getById(id));
+    }
+
+    @Override
+    public IPage<${domainName}> getListByPage(Page page, Wrapper wrapper) {
+        IPage<${entity}> paged = this.page(page, wrapper);
+
+        return paged.convert(${lowerConvertorName}::toDomain);
+    }
+
+}
+#end

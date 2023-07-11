@@ -4,13 +4,12 @@ import com.google.common.collect.Lists;
 
 import com.th.cenarius.commons.Order;
 import com.th.cenarius.commons.fee.config.StrategyFactoryConfig;
-import com.th.cenarius.commons.fee.pay.IPayGroup;
-import com.th.cenarius.commons.fee.pay.IPayItem;
+import com.th.cenarius.commons.pattern.fee.FeeCalculate;
+import com.th.cenarius.commons.pattern.fee.FeeItem;
+import com.th.cenarius.commons.pattern.fee.IFeeItemType;
+import com.th.cenarius.commons.pattern.fee.pay.IPayGroup;
+import com.th.cenarius.commons.pattern.fee.pay.IPayItem;
 import com.th.cenarius.commons.fee.pay.PayGroup;
-import com.th.cenarius.commons.fee.rule.FeeRule;
-import com.th.cenarius.commons.fee.rule.FeeRuleTypeEnum;
-import com.th.cenarius.commons.fee.rule.MaxLimitRule;
-import com.th.cenarius.commons.fee.rule.PlusRule;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ public class FeeCalculateTest {
                 .orderId("Order001")
                 .userId("006")
                 .orderItemFee(new BigDecimal("70"))
-                .userPlus(false)
+                .userPlus(true)
                 .build();
     }
 

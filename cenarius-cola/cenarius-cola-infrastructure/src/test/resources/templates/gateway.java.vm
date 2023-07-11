@@ -1,0 +1,61 @@
+package ${gatewayPackage};
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${domainPackage}.${domainName};
+
+/**
+ * <p>
+ * ${domainName} Gateway
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface I${gatewayName} {
+
+    /**
+     * create ${domainName}
+     *
+     * @param entity {@link ${domainName}}
+     * @return result
+     */
+    String create${domainName}(${domainName} entity);
+
+    /**
+     * revise ${domainName}
+     *
+     * @param entity {@link ${domainName}}
+     * @return result
+     */
+    boolean revise${domainName}(${domainName} entity);
+
+    /**
+     * @param id ID
+     *
+     * @return result
+     */
+    boolean remove${domainName}(String id);
+
+    /**
+     * get ${domainName} by id
+     *
+     * @param id ID
+     * @return entity {@link ${domainName}}
+     */
+     ${domainName} get${domainName}ById(String id);
+
+    /**
+     * get ${domainName} by page
+     *
+     * @param page current page
+     * @param wrapper query wrapper
+     * @return {@link IPage<${domainName}>} result
+     */
+    IPage<${domainName}> getListByPage(Page page, Wrapper wrapper);
+}
+#end

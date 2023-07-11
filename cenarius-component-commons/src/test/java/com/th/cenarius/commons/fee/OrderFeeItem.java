@@ -1,6 +1,8 @@
 package com.th.cenarius.commons.fee;
 
 import com.th.cenarius.commons.Order;
+import com.th.cenarius.commons.pattern.fee.FeeItem;
+import com.th.cenarius.commons.pattern.fee.IFeeItemType;
 
 import java.math.BigDecimal;
 

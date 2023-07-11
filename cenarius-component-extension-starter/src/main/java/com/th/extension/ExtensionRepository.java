@@ -1,5 +1,6 @@
 package com.th.extension;
 
+import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,8 @@ public class ExtensionRepository {
         if (AopUtils.isAopProxy(extClazz)) {
             extClazz = ClassUtils.getUserClass(extClazz);
         }
+
+        AopProxyUtils.getSingletonTarget(extBean);
 
         Extension extAnno = AnnotationUtils.findAnnotation(extClazz, Extension.class);
 

@@ -1,0 +1,36 @@
+package ${cmdExePackage};
+
+import ${domainPackage}.${domainName};
+import ${appConvertorPackage}.${appConvertorName};
+import ${dtoPackage}.command.${domainName}ReviseCmd;
+import ${gatewayPackage}.I${gatewayName};
+import ${gatewayImplPackage}.${gatewayName};
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName}ReviseCmdExecute
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${domainName}ReviseCmdExe {
+
+    @Resource
+    private I${gatewayName} ${lowerGatewayName};
+
+    @Resource
+    private ${appConvertorName} ${lowerConvertorName};
+
+    public boolean execute(${domainName}ReviseCmd cmd) {
+        return ${lowerGatewayName}.revise${domainName}(${lowerConvertorName}.to${domainName}(cmd));
+    }
+
+}
+

@@ -1,0 +1,33 @@
+package ${cmdExePackage};
+
+import ${appConvertorPackage}.${appConvertorName};
+import ${dtoPackage}.command.${domainName}CreateCmd;
+import ${gatewayPackage}.I${gatewayName};
+import ${gatewayImplPackage}.${gatewayName};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName}CreateCmdExecute
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${domainName}CreateCmdExe {
+
+    @Resource
+    private I${gatewayName} ${lowerGatewayName};
+
+    @Resource
+    private ${appConvertorName} ${lowerConvertorName};
+
+    public String execute(${domainName}CreateCmd cmd) {
+        return ${lowerGatewayName}.create${domainName}(${lowerConvertorName}.to${domainName}(cmd));
+    }
+
+}
+

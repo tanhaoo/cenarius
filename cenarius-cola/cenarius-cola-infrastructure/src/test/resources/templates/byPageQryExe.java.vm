@@ -1,0 +1,42 @@
+package ${qryExePackage};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${domainPackage}.${domainName};
+import ${appConvertorPackage}.${appConvertorName};
+import ${dtoPackage}.query.${domainName}PageQuery;
+import ${dtoPackage}.data.${domainName}DTO;
+import ${gatewayPackage}.I${gatewayName};
+import ${gatewayImplPackage}.${gatewayName};
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{domainName}ByPageQryExecute
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${domainName}ByPageQryExe {
+
+    @Resource
+    private I${gatewayName} ${lowerGatewayName};
+
+    @Resource
+    private ${appConvertorName} ${lowerConvertorName};
+
+    public IPage<${domainName}DTO> execute(${domainName}PageQuery<${entity}> query) {
+        return ${lowerDomainName}Gateway
+                .getListByPage(query.getPage(), query.getWrapper())
+                .convert(${lowerDomainName}Convertor::to${domainName}DTO);
+    }
+
+}
+

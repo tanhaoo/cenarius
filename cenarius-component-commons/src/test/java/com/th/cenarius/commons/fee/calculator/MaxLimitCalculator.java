@@ -4,16 +4,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import com.th.cenarius.commons.Order;
-import com.th.cenarius.commons.fee.AbstractCalculator;
-import com.th.cenarius.commons.fee.FeeCalculate;
+import com.th.cenarius.commons.pattern.fee.AbstractCalculator;
+import com.th.cenarius.commons.pattern.fee.FeeCalculate;
 import com.th.cenarius.commons.fee.FeeItemTypeEnum;
-import com.th.cenarius.commons.fee.IFeeItemType;
-import com.th.cenarius.commons.fee.pay.IPayItem;
+import com.th.cenarius.commons.pattern.fee.IFeeItemType;
+import com.th.cenarius.commons.pattern.fee.pay.IPayItem;
 import com.th.cenarius.commons.fee.pay.PayGroup;
 import com.th.cenarius.commons.fee.pay.PayType;
 import com.th.cenarius.commons.fee.payItem.MaxLimitPayItem;
-import com.th.cenarius.commons.fee.rule.FeeRule;
-import com.th.cenarius.commons.fee.rule.IFeeRuleType;
+import com.th.cenarius.commons.pattern.fee.rule.FeeRule;
+import com.th.cenarius.commons.pattern.fee.rule.IFeeRuleType;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,0 +1,62 @@
+package ${package.Service};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import ${dtoPackage}.command.${domainName}CreateCmd;
+import ${dtoPackage}.command.${domainName}ReviseCmd;
+import ${dtoPackage}.data.${domainName}DTO;
+
+/**
+ * <p>
+ * ${domainName} Gateway
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} {
+
+    /**
+     * create ${domainName}CreateCmd
+     *
+     * @param cmd {@link ${domainName}CreateCmd}
+     * @return result
+     */
+    void create${domainName}(${domainName}CreateCmd cmd);
+
+    /**
+     * revise ${domainName}ReviseCmd
+     *
+     * @param cmd {@link ${domainName}ReviseCmd}
+     * @return result
+     */
+    boolean revise${domainName}(${domainName}ReviseCmd cmd);
+
+    /**
+     * remove ${domainName}
+     *
+     * @param id ID
+     * @return result
+     */
+    boolean remove${domainName}(String id);
+
+    /**
+     * get ${domainName} by id
+     *
+     * @param id ID
+     * @return entity {@link ${domainName}DTO}
+     */
+    ${domainName}DTO get${domainName}ById(String id);
+
+    /**
+     * get ${domainName}DTO by page
+     *
+     * @param current current page
+     * @param size size
+     * @return {@link IPage<${domainName}DTO>} result
+     */
+    IPage<${domainName}DTO> getListByPage(Long current, Long size);
+}
+#end
